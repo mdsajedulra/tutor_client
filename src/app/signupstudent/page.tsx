@@ -1,6 +1,10 @@
+"use client"
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Github } from "lucide-react";
+import { signIn } from "next-auth/react";
+
 
 export default function StudentSignupPage() {
   return (
@@ -19,8 +23,20 @@ export default function StudentSignupPage() {
           <Label htmlFor="password">Password</Label>
           <Input id="password" type="password" placeholder="Enter password" />
         </div>
-        <Button className="w-full" type="submit">Sign Up as Student</Button>
+        <Button className="w-full" type="submit">
+          Sign Up as Student
+        </Button>
       </form>
+      <div>
+        <div className="flex align-middle justify-center gap-3">
+        <Button onClick={()=>signIn("github", {
+            callbackUrl: "http://localhost:5000"
+        })} variant="outline" className="w-full">
+        <Github />
+        <div>Sign up with Github</div>
+        </Button>
+        </div>
+      </div>
     </div>
   );
 }

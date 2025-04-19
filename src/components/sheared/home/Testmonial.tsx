@@ -38,7 +38,7 @@ const testimonials: Testimonial[] = [
 const Testmonial = () => {
   return (
     <>
-      <Carousel className="w-full md:w-full">
+      <Carousel className="  my-20">
         <CarouselContent>
           {testimonials.map((testimonial, index) => (
             <CarouselItem key={index}>
