@@ -1,0 +1,134 @@
+{
+    "tutor": [
+        {
+            "id": "tutor001",
+            "name": "John Doe",
+            "profilePicture": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqSeFVyo8KOrksQuHBQjLCyQ9dwuefXulcoWHCvu3-bRDWpOjADk7hHUJ9VZJgoUkMZF4&usqp=CAU",
+            "bio": "Experienced Math and Physics tutor with 5 years of teaching.",
+            "subjects": ["Math", "Physics"],
+            "hourlyRate": 25,
+            "rating": 4.8,
+            "location": "New York, USA",
+            "availability": [
+              { "day": "Monday", "slots": ["10:00 AM - 12:00 PM", "2:00 PM - 4:00 PM"] }
+            ]
+          },
+          {
+            "id": "tutor002",
+            "name": "Jane Smith",
+            "profilePicture": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqSeFVyo8KOrksQuHBQjLCyQ9dwuefXulcoWHCvu3-bRDWpOjADk7hHUJ9VZJgoUkMZF4&usqp=CAU",
+            "bio": "English and History specialist, passionate about helping students excel.",
+            "subjects": ["English", "History"],
+            "hourlyRate": 30,
+            "rating": 4.6,
+            "location": "Los Angeles, USA",
+            "availability": [
+              { "day": "Tuesday", "slots": ["9:00 AM - 11:00 AM"] }
+            ]
+          },
+          {
+            "id": "tutor003",
+            "name": "Michael Brown",
+            "profilePicture": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqSeFVyo8KOrksQuHBQjLCyQ9dwuefXulcoWHCvu3-bRDWpOjADk7hHUJ9VZJgoUkMZF4&usqp=CAU",
+            "bio": "Passionate Chemistry tutor for high school students.",
+            "subjects": ["Chemistry"],
+            "hourlyRate": 20,
+            "rating": 4.7,
+            "location": "Chicago, USA",
+            "availability": [
+              { "day": "Wednesday", "slots": ["11:00 AM - 1:00 PM"] }
+            ]
+          },
+          {
+            "id": "tutor004",
+            "name": "Emily Davis",
+            "profilePicture": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqSeFVyo8KOrksQuHBQjLCyQ9dwuefXulcoWHCvu3-bRDWpOjADk7hHUJ9VZJgoUkMZF4&usqp=CAU",
+            "bio": "Expert in Biology and Environmental Science tutoring.",
+            "subjects": ["Biology", "Environmental Science"],
+            "hourlyRate": 28,
+            "rating": 4.5,
+            "location": "Miami, USA",
+            "availability": [
+              { "day": "Thursday", "slots": ["1:00 PM - 3:00 PM"] }
+            ]
+          },
+          {
+            "id": "tutor005",
+            "name": "William Johnson",
+            "profilePicture": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqSeFVyo8KOrksQuHBQjLCyQ9dwuefXulcoWHCvu3-bRDWpOjADk7hHUJ9VZJgoUkMZF4&usqp=CAU",
+            "bio": "Skilled Computer Science tutor specializing in algorithms.",
+            "subjects": ["Computer Science"],
+            "hourlyRate": 35,
+            "rating": 4.9,
+            "location": "Austin, USA",
+            "availability": [
+              { "day": "Friday", "slots": ["3:00 PM - 5:00 PM"] }
+            ]
+          },
+          {
+            "id": "tutor006",
+            "name": "Sophia Martinez",
+            "profilePicture": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqSeFVyo8KOrksQuHBQjLCyQ9dwuefXulcoWHCvu3-bRDWpOjADk7hHUJ9VZJgoUkMZF4&usqp=CAU",
+            "bio": "History and Social Studies teacher with a passion for storytelling.",
+            "subjects": ["History", "Social Studies"],
+            "hourlyRate": 22,
+            "rating": 4.4,
+            "location": "Seattle, USA",
+            "availability": [
+              { "day": "Monday", "slots": ["10:00 AM - 12:00 PM"] }
+            ]
+          },
+          {
+            "id": "tutor007",
+            "name": "James Lee",
+            "profilePicture": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqSeFVyo8KOrksQuHBQjLCyQ9dwuefXulcoWHCvu3-bRDWpOjADk7hHUJ9VZJgoUkMZF4&usqp=CAU",
+            "bio": "Advanced Math tutor specializing in Calculus and Statistics.",
+            "subjects": ["Calculus", "Statistics"],
+            "hourlyRate": 40,
+            "rating": 5.0,
+            "location": "San Francisco, USA",
+            "availability": [
+              { "day": "Tuesday", "slots": ["2:00 PM - 4:00 PM"] }
+            ]
+          },
+          {
+            "id": "tutor008",
+            "name": "Olivia Wilson",
+            "profilePicture": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqSeFVyo8KOrksQuHBQjLCyQ9dwuefXulcoWHCvu3-bRDWpOjADk7hHUJ9VZJgoUkMZF4&usqp=CAU",
+            "bio": "Language arts tutor focusing on English literature and writing.",
+            "subjects": ["English Literature", "Writing"],
+            "hourlyRate": 27,
+            "rating": 4.6,
+            "location": "Boston, USA",
+            "availability": [
+              { "day": "Wednesday", "slots": ["9:00 AM - 11:00 AM"] }
+            ]
+          },
+          {
+            "id": "tutor009",
+            "name": "Benjamin Taylor",
+            "profilePicture": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqSeFVyo8KOrksQuHBQjLCyQ9dwuefXulcoWHCvu3-bRDWpOjADk7hHUJ9VZJgoUkMZF4&usqp=CAU",
+            "bio": "Physics expert, especially for college-level students.",
+            "subjects": ["Physics"],
+            "hourlyRate": 32,
+            "rating": 4.7,
+            "location": "Denver, USA",
+            "availability": [
+              { "day": "Thursday", "slots": ["4:00 PM - 6:00 PM"] }
+            ]
+          },
+          {
+            "id": "tutor010",
+            "name": "Ava Anderson",
+            "profilePicture": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqSeFVyo8KOrksQuHBQjLCyQ9dwuefXulcoWHCvu3-bRDWpOjADk7hHUJ9VZJgoUkMZF4&usqp=CAU",
+            "bio": "Expert SAT and ACT prep tutor with high success rates.",
+            "subjects": ["SAT Prep", "ACT Prep"],
+            "hourlyRate": 45,
+            "rating": 4.9,
+            "location": "Philadelphia, USA",
+            "availability": [
+              { "day": "Friday", "slots": ["10:00 AM - 12:00 PM"] }
+            ]
+          }
+    ]
+}
