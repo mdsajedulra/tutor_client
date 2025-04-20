@@ -3,9 +3,10 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/sheared/home/Navbar";
 
-import Providers from "@/lib/redux/provider";
+import Providers from "@/providers/provider";
 import NextTopLoader from "nextjs-toploader";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,16 +34,8 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="Light"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <NextTopLoader />
-            <Navbar />
-            {children}
-          </ThemeProvider>
+          <Navbar />
+          {children}
         </body>
       </html>
     </Providers>

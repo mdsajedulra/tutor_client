@@ -1,3 +1,5 @@
+export * from "./user"
+
 export interface AvailabilitySlot {
     day: string;
     slots: string[];
@@ -14,3 +16,4 @@ export interface AvailabilitySlot {
     location: string;
     availability: AvailabilitySlot[];
   }
+
