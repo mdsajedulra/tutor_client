@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function HeroSection() {
   return (
   <div className=" w-full">
-      <section className="flex flex-col items-center justify-center text-center py-20 bg-blue-50">
+      <section className="flex flex-col items-center justify-center text-center py-20 ">
       {/* Main Text */}
       <h1 className="text-4xl md:text-5xl font-bold mb-6 text-blue-700">
         Find Your Perfect Tutor Today!

@@ -1,6 +1,6 @@
 "use client"
 import TutorDetailsPage from "@/components/sheared/tutor/TutorDetailsCard";
-import { useGetTutorByIdQuery } from "@/redux/apis/tutor.slice";
+import { useGetTutorByIdQuery } from "@/lib/redux/api/tutorApi";
 import { useParams } from "next/navigation";
 
 const TutorDetails = () => {

@@ -2,9 +2,9 @@ import { CheckCircle, CreditCard, Search } from "lucide-react";
 
 export default function FeaturesSection() {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 ">
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-blue-700">
+        <h2 className="text-3xl md:text-4xl font-bold ">
           Why Choose TutorLink?
         </h2>
         <p className="text-gray-600 mt-4">

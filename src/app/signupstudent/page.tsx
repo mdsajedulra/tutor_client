@@ -44,10 +44,10 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-xl shadow-md">
+    <div className="flex items-center justify-center min-h-screen ">
+      <div className="w-full max-w-md p-8 space-y-6  rounded-xl shadow-md">
         <h2 className="text-2xl font-bold text-center">Create Account</h2>
-        <p className="text-sm text-gray-600 text-center">
+        <p className="text-sm  text-center">
           Please fill in the information below
         </p>
 

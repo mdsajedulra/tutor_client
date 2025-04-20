@@ -1,6 +1,6 @@
 "use client"
 import { TutorCard } from "@/components/sheared/tutor/TutorCard";
-import { useGetTutorQuery } from "@/redux/apis/tutor.slice";
+import { useGetTutorQuery } from "@/lib/redux/api/tutorApi";
 
 const Page = () => {
     const { data } = useGetTutorQuery({});
