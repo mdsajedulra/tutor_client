@@ -15,7 +15,7 @@ export const registerUser = async (userData: loginUserData) => {
     const result = await res.json();
     if (result.success) {
       console.log(result?.token);
-      (await cookies()).set("accessToken", result?.token);
+      // (await cookies()).set("accessToken", result?.token);
     }
     return result;
   } catch (error) {
