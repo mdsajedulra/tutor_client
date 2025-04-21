@@ -15,14 +15,14 @@ type TAuthState = {
 
 
 const getInitialState = (): TAuthState => {
-  if (typeof window !== 'undefined') {
-    const storedUser = localStorage.getItem("user");
-    const storedToken = localStorage.getItem("token");
-    return {
-      user: storedUser ? JSON.parse(storedUser) : null,
-      token: storedToken || null,
-    };
-  }
+  // if (typeof window !== 'undefined') {
+  //   const storedUser = localStorage.getItem("user");
+  //   const storedToken = localStorage.getItem("token");
+  //   return {
+  //     user: storedUser ? JSON.parse(storedUser) : null,
+  //     token: storedToken || null,
+  //   };
+  // }
   return {
     user: null,
     token: null,
@@ -40,10 +40,10 @@ export const authSlice = createSlice({
       state.user = user;
       state.token = token;
       
-      if (typeof window !== 'undefined') {
-        localStorage.setItem("user", JSON.stringify(user));
-        localStorage.setItem("token", token);
-      }
+      // if (typeof window !== 'undefined') {
+      //   localStorage.setItem("user", JSON.stringify(user));
+      //   localStorage.setItem("token", token);
+      // }
     },
     logout: (state) => {
       state.user = null;

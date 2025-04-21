@@ -4,9 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/sheared/home/Navbar";
 
 import Providers from "@/providers/provider";
-import NextTopLoader from "nextjs-toploader";
-import { ThemeProvider } from "@/components/theme-provider";
-import { Toaster } from "sonner";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

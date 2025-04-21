@@ -1,11 +1,11 @@
-"use client";
-
+"use server"
 import { cookies } from "next/headers";
-import jwtDecode from "jwt-decode"
+import { jwtDecode } from "jwt-decode";
+import { loginUserData } from "@/types";
 
-const loginUser = async (userData) => {
+export const registerUser = async (userData: loginUserData) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/login`, {
+    const res = await fetch(`${process.env.BACKEND_URL}/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -14,7 +14,27 @@ const loginUser = async (userData) => {
     });
     const result = await res.json();
     if (result.success) {
-      (await cookies()).set("accessToken", result?.data?.accessToken);
+      console.log(result?.token);
+      (await cookies()).set("accessToken", result?.token);
+    }
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const loginUser = async (userData: loginUserData) => {
+  try {
+    const res = await fetch(`${process.env.BACKEND_URL}/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    });
+    const result = await res.json();
+    if (result.success) {
+      console.log(result?.token);
+      (await cookies()).set("accessToken", result?.token);
     }
     return result;
   } catch (error) {
@@ -24,12 +44,11 @@ const loginUser = async (userData) => {
 
 // accesstoken access from cookies
 
-export const getCurrentUser = async () =>{
-    const accessToken = (await cookies()).get("accessToken")!.value
-    let decodedData = null
-    if(accessToken){
-        decodedData = await jwtDecode(accessToken)
-        return decodedData
-    }
-    else return null;
-}
+export const getCurrentUser = async () => {
+  const accessToken = (await cookies()).get("accessToken")!.value;
+  let decodedData = null;
+  if (accessToken) {
+    decodedData = await jwtDecode(accessToken);
+    return decodedData;
+  } else return null;
+};
