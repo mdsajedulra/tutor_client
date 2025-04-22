@@ -48,6 +48,7 @@ export enum UserRole {
 }
 
 export type TJwtPayloadWithEnum = {
+  name: ReactNode;
   email: string;
   exp: number;
   iat: number;

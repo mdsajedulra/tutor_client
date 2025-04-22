@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tutor } from "@/types";
-import { DollarSign } from "lucide-react";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -9,7 +9,6 @@ export default function TutorDetailsPage({ tutor }: { tutor: Tutor }) {
   console.log(tutor);
   if (!tutor) return <div>Loading...</div>;
   const {
-  
     name,
     bio,
     rating,
@@ -17,7 +16,6 @@ export default function TutorDetailsPage({ tutor }: { tutor: Tutor }) {
 
     location,
     subjects,
-   
   } = tutor;
 
   return (
@@ -29,7 +27,9 @@ export default function TutorDetailsPage({ tutor }: { tutor: Tutor }) {
           <Image
             height="100"
             width="100"
-            src={"https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
+            src={
+              "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            }
             alt="Tutor"
             className="w-40 h-40 rounded-full object-cover border-2 border-primary"
           />
@@ -38,22 +38,21 @@ export default function TutorDetailsPage({ tutor }: { tutor: Tutor }) {
         <div className="">
           <p className="text-gray-500 mt-2">{bio}</p>
           <div className="mt-4 text-gray-600 space-y-1 text-sm flex justify-between">
-          <div>
-          <p>💵 Rate:</p>
-          
-            <p>⭐ Rating:</p>
-            <p>📍 Location:</p>
-          </div>
+            <div>
+              <p>💵 Rate:</p>
+
+              <p>⭐ Rating:</p>
+              <p>📍 Location:</p>
+            </div>
             <div>
               <p>{hourlyRate}/hr</p>
               <p>{rating}/5 (120 Reviews)</p>
               <p>{location}</p>
             </div>
           </div>
-        <Link href={""} className="flex justify-center">
-        <Button className="mt-6 ">Book a Session</Button>
-        
-        </Link>
+          <Link href={""} className="flex justify-center">
+            <Button className="mt-6 ">Book a Session</Button>
+          </Link>
         </div>
       </div>
 

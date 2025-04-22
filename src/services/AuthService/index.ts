@@ -53,10 +53,18 @@ export const getCurrentUser = async () => {
   if (accessToken) {
     decodedData = await jwtDecode(accessToken);
     console.log(decodedData.email);
-    const res =  await fetch(`${process.env.BACKEND_URL}/users/${decodedData?.email}`)
+    const res =  await fetch(`${process.env.BACKEND_URL}/users/${decodedData?.email}`, {
+      cache: "no-store"
+    })
     const user = await res.json()
     if(user?.data){
       return user?.data
     }
   } else return null;
 };
+
+// logout 
+
+export const logout = async () =>{
+  (await cookies()).delete("accessToken")
+}

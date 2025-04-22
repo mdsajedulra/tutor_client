@@ -33,7 +33,7 @@ const formSchema = z.object({
   }),
 });
 
-export default function RegisterForm() {
+export default function StudentRegistrationForm() {
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirectPath");
 
@@ -42,20 +42,17 @@ export default function RegisterForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "name",
-      email: "tanvir1@example.com",
-      password: "123456",
+      name: "",
+      email: "",
+      password: "",
     },
   });
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     try {
-      const updateData = {
-        ...data,
-        role: "tutor"
-      }
-      console.log(updateData);
-      const res = await registerUser(updateData);
+    //   console.log(data);
+      
+      const res = await registerUser(data);
       console.log(res);
       if (res?.success) {
         toast.success(res?.message);
@@ -76,8 +73,8 @@ export default function RegisterForm() {
   return (
     <div className="flex items-center justify-center min-h-screen ">
       <div className="w-full max-w-md p-8 space-y-6  rounded-xl shadow-md">
-      <h2 className="text-2xl font-bold text-center">Good to know</h2>
-        <p className="text-sm text-center">On Superprof you can teach over 1,000 subjects! Use the search engine to find the subject you teach and let the fun begin :)</p>
+      <h2 className="text-2xl font-bold text-center">Create Student Account</h2>
+        {/* <p className="text-sm text-center">On Superprof you can teach over 1,000 subjects! Use the search engine to find the subject you teach and let the fun begin :)</p> */}
 
 
         <Form {...form}>

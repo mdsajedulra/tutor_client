@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { Input } from "@/components/ui/input";
@@ -11,6 +13,7 @@ import { IUser } from "@/types";
 import Select from "react-select"; // react-select import
 import { updateTutorProfile } from "@/services/Tutor";
 import { toast } from "sonner";
+import { getSubject } from "@/services/Subject";
 
 const availableDays = [
   { value: "Monday", label: "Monday" },
@@ -39,7 +42,15 @@ interface TutorFormData {
   location: string;
   availability: AvailabilitySlot[];
 }
-
+// export interface ISub {
+//   _id: string
+//   name: string
+//   gradeLevel: string
+//   category: string
+//   createdAt: string
+//   updatedAt: string
+//   __v: number
+// }
 export default function TutorForm() {
   const router = useRouter();
   const { register, handleSubmit, control, reset, setValue } = useForm<TutorFormData>({
@@ -55,6 +66,7 @@ export default function TutorForm() {
   });
 
   const [user, setUser] = useState<IUser | null>(null);
+  const [subject, setSubject] = useState();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -65,6 +77,18 @@ export default function TutorForm() {
     };
     fetchUser();
   }, [setValue]);
+  useEffect(() => {
+    const fetchSubject = async () => {
+      const subject = await getSubject();
+      setSubject(subject)
+      
+    };
+    fetchSubject();
+  }, []);
+  // console.log(subject);
+
+  const subs = subject?.data.map((sub: { category: any; }) => (sub?.category))
+
 
   const onSubmit = async (data: TutorFormData) => {
     
@@ -128,21 +152,21 @@ export default function TutorForm() {
           name="subjects"
           render={({ field }) => (
             <div className="flex flex-wrap gap-3">
-              {["Math", "Physics", "Chemistry", "Biology", "English"].map((subject) => (
+              {subs?.map((sub: string, index: number) => (
                 <Button
                   type="button"
-                  key={subject}
-                  variant={field.value.includes(subject) ? "default" : "outline"}
+                  key={index}
+                  variant={field.value.includes(sub) ? "default" : "outline"}
                   onClick={() => {
-                    if (field.value.includes(subject)) {
-                      field.onChange(field.value.filter((s) => s !== subject));
+                    if (field.value.includes(sub)) {
+                      field.onChange(field.value.filter((s) => s !== sub));
                     } else {
-                      field.onChange([...field.value, subject]);
+                      field.onChange([...field.value, sub]);
                     }
                   }}
                   className="capitalize rounded-full px-6 py-2"
                 >
-                  {subject}
+                  {sub}
                 </Button>
               ))}
             </div>

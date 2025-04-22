@@ -49,15 +49,15 @@ export default function LoginForm() {
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     try {
-      console.log(data);
+     
       const res = await loginUser(data);
-      // console.log(res);
+      console.log(res);
       if (res?.success) {
         toast.success(res?.message);
         if (redirect) {
           router.push(redirect);
         } else {
-          router.push("/profile");
+          router.push("/dashboard");
         }
       } else {
         toast.error(res?.message);
@@ -112,7 +112,7 @@ export default function LoginForm() {
                 href="/forgot-password"
                 className="text-sm text-blue-600 hover:underline"
               >
-                Forgot Password?
+                {/* Forgot Password? */}
               </Link>
             </div>
             <FormMessage  />
@@ -124,8 +124,13 @@ export default function LoginForm() {
 
         <p className="text-center text-sm text-gray-600">
           Don&apos;t have an account?{" "}
-          <Link href="/register" className="text-blue-600 hover:underline">
-            Create one
+          <br />
+          <Link href="/signupstudent" className="text-blue-600 hover:underline">
+            Register as a Student
+          </Link>
+          <br />
+          <Link href="/signuptutor" className="text-blue-600 hover:underline">
+            Register as a Tutor
           </Link>
         </p>
       </div>
