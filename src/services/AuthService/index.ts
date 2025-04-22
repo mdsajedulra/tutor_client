@@ -45,7 +45,8 @@ export const loginUser = async (userData: loginUserData) => {
 // accesstoken access from cookies
 
 export const getCurrentUser = async () => {
-  const accessToken = (await cookies()).get("accessToken")!.value;
+  const tokenData = (await cookies()).get("accessToken")
+  const accessToken = tokenData?.value;  // safe check
   let decodedData = null;
   if (accessToken) {
     decodedData = await jwtDecode(accessToken);
