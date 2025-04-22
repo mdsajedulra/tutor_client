@@ -1,17 +1,28 @@
-"use client"
+"use client";
 import TutorDetailsPage from "@/components/sheared/tutor/TutorDetailsCard";
-import { useGetTutorByIdQuery } from "@/lib/redux/api/tutorApi";
+import { getTutorById } from "@/services/Tutor";
+
 import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const TutorDetails = () => {
-    const {cardId}  = useParams()
-    const {data:tutor}  = useGetTutorByIdQuery(cardId)
-    // console.log(data);
-    return (
-        <>
-<TutorDetailsPage tutor={tutor} key={tutor?.id}/>
-</>
-    );
+  const { cardId } = useParams();
+  console.log(cardId);
+
+  const [tutor, setTutor] = useState();
+
+  useEffect(() => {
+    const getTutor = async () => {
+      const result = await getTutorById(cardId as string);
+      setTutor(result);
+    };
+    getTutor();
+  }, []);
+ 
+
+  return <>
+  <TutorDetailsPage tutor={tutor?.data} key={tutor?._id}/>
+  </>;
 };
 
 export default TutorDetails;

@@ -1,6 +1,5 @@
-"use client";
-
-import { useForm } from "react-hook-form";
+"use client"
+import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -9,6 +8,25 @@ import { useRouter } from "next/navigation";
 import { getCurrentUser } from "@/services/AuthService";
 import { useEffect, useState } from "react";
 import { IUser } from "@/types";
+import Select from "react-select"; // react-select import
+import { updateTutorProfile } from "@/services/Tutor";
+import { toast } from "sonner";
+
+const availableDays = [
+  { value: "Monday", label: "Monday" },
+  { value: "Tuesday", label: "Tuesday" },
+  { value: "Wednesday", label: "Wednesday" },
+  { value: "Thursday", label: "Thursday" },
+  { value: "Friday", label: "Friday" },
+  { value: "Saturday", label: "Saturday" },
+  { value: "Sunday", label: "Sunday" },
+];
+
+interface AvailabilitySlot {
+  day: string;
+  startTime: string;
+  endTime: string;
+}
 
 interface TutorFormData {
   name: string;
@@ -16,105 +34,188 @@ interface TutorFormData {
   phone: string;
   profilePicture: string;
   bio: string;
-  subjects: string;
-  grades: string;
+  subjects: string[];
   hourlyRate: number;
   location: string;
+  availability: AvailabilitySlot[];
 }
 
 export default function TutorForm() {
   const router = useRouter();
-  const { register, handleSubmit, reset } = useForm<TutorFormData>();
+  const { register, handleSubmit, control, reset, setValue } = useForm<TutorFormData>({
+    defaultValues: {
+      subjects: [],
+      availability: [],
+    },
+  });
 
-  const [user, setUser] = useState<IUser | null>();
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "availability",
+  });
+
+  const [user, setUser] = useState<IUser | null>(null);
 
   useEffect(() => {
     const fetchUser = async () => {
       const user = await getCurrentUser();
-      console.log(user);
       setUser(user);
+      setValue("name", user?.name || "");
+      setValue("email", user?.email || "");
     };
     fetchUser();
-  }, []);
-
-  console.log(user);
+  }, [setValue]);
 
   const onSubmit = async (data: TutorFormData) => {
-    console.log(data);
-    // try {
-    //   const response = await fetch("/api/tutors", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify({
-    //       ...data,
-    //       subjects: data.subjects.split(","),
-    //       grades: data.grades.split(","),
-    //     }),
-    //   });
-
-    //   if (response.ok) {
-    //     alert("Tutor registered successfully!");
-    //     reset();
-    //     router.push("/dashboard/tutor");
-    //   } else {
-    //     alert("Failed to register tutor.");
-    //   }
-    // } catch (error) {
-    //   console.error(error);
-    //   alert("Something went wrong.");
-    // }
+    
+    const updateData = {
+      user: user?._id,
+      bio: data?.bio,
+      subjects: data?.subjects,
+      hourlyRate: data?.hourlyRate,
+      availability: data?.availability.map((slot) => ({
+        day: slot.day, // day name only
+        startTime: slot.startTime,
+        endTime: slot.endTime,
+      })),
+      location: data?.location,
+      email: user?.email,
+    };
+    console.log(updateData);
+    const res = await updateTutorProfile(updateData)
+   if(res.success) {
+    toast.success("Your profile is ready as a tutor");
+   }
+    if(res.success === false){
+      toast.error(res.message)
+    }
   };
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-6 max-w-xl mx-auto p-6 bg-white rounded-xl shadow"
+      className="space-y-6 max-w-3xl mx-auto p-6 bg-white rounded-xl shadow"
     >
+      {/* Name */}
       <div>
         <Label>Name</Label>
-        <Input
-          defaultValue={user?.name}
-          {...register("name", { disabled: true, required: true })}
-        />
-      </div>
-      <div>
-        <Label>Email</Label>
-        <Input
-          defaultValue={user?.email}
-          type="email"
-          {...register("email", { disabled: true, required: true })}
-        />
+        <Input disabled {...register("name")} />
       </div>
 
+      {/* Email */}
+      <div>
+        <Label>Email</Label>
+        <Input disabled type="email" {...register("email")} />
+      </div>
+
+      {/* Profile Pic */}
       <div>
         <Label>Profile Picture URL</Label>
         <Input {...register("profilePicture", { required: true })} />
       </div>
+
+      {/* Bio */}
       <div>
         <Label>Bio</Label>
         <Textarea {...register("bio", { required: true })} />
       </div>
-      <div>
-        <Label>Subjects (comma separated)</Label>
-        <Input {...register("subjects", { required: true })} />
-      </div>
-      {/* <div>
-        <Label>Grades (comma separated)</Label>
-        <Input {...register("grades", { required: true })} />
-      </div> */}
-      <div>
-        <Label>Hourly Rate (BDT)</Label>
-        <Input
-          type="number"
-          {...register("hourlyRate", { required: true, valueAsNumber: true })}
+
+      {/* Subjects Multi Select */}
+      <div className="flex flex-col gap-2">
+        <Label>Subjects</Label>
+        <Controller
+          control={control}
+          name="subjects"
+          render={({ field }) => (
+            <div className="flex flex-wrap gap-3">
+              {["Math", "Physics", "Chemistry", "Biology", "English"].map((subject) => (
+                <Button
+                  type="button"
+                  key={subject}
+                  variant={field.value.includes(subject) ? "default" : "outline"}
+                  onClick={() => {
+                    if (field.value.includes(subject)) {
+                      field.onChange(field.value.filter((s) => s !== subject));
+                    } else {
+                      field.onChange([...field.value, subject]);
+                    }
+                  }}
+                  className="capitalize rounded-full px-6 py-2"
+                >
+                  {subject}
+                </Button>
+              ))}
+            </div>
+          )}
         />
       </div>
+
+      {/* Hourly Rate */}
+      <div>
+        <Label>Hourly Rate (BDT)</Label>
+        <Input type="number" {...register("hourlyRate", { required: true, valueAsNumber: true })} />
+      </div>
+
+      {/* Location */}
       <div>
         <Label>Location</Label>
         <Input {...register("location", { required: true })} />
       </div>
 
-      <Button type="submit" className="w-full">
+      {/* Availability Slots */}
+      <div className="flex flex-col gap-4">
+        <Label>Availability</Label>
+
+        {fields.map((field, index) => (
+          <div key={field.id} className="flex items-center gap-3">
+            {/* Day Selection */}
+            <Controller
+              control={control}
+              name={`availability.${index}.day`}
+              render={({ field }) => (
+                <Select
+                  value={availableDays.find((option) => option.value === field.value)} // bind value correctly
+                  options={availableDays}
+                  placeholder="Select Day"
+                  onChange={(selectedOption: any) => field.onChange(selectedOption?.value)} // Store only the day name
+                  className="w-1/3"
+                />
+              )}
+            />
+
+            {/* Start Time */}
+            <Input
+              type="time"
+              {...register(`availability.${index}.startTime`, { required: true })}
+              className="w-1/4"
+            />
+
+            {/* End Time */}
+            <Input
+              type="time"
+              {...register(`availability.${index}.endTime`, { required: true })}
+              className="w-1/4"
+            />
+
+            {/* Remove Button */}
+            <Button type="button" variant="destructive" onClick={() => remove(index)}>
+              Remove
+            </Button>
+          </div>
+        ))}
+
+        {/* Add Slot Button */}
+        <Button
+          type="button"
+          onClick={() => append({ day: "", startTime: "", endTime: "" })}
+          className="w-fit"
+        >
+          + Add Slot
+        </Button>
+      </div>
+
+      {/* Submit Button */}
+      <Button type="submit" className="w-full py-6 text-lg rounded-full">
         Register as Tutor
       </Button>
     </form>

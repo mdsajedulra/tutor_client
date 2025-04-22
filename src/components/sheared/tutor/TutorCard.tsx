@@ -8,27 +8,30 @@ import {
   import { Button } from "@/components/ui/button";
   import Image from "next/image";
   import Link from "next/link";
-  import { Tutor } from "@/types";
+import { Tutor } from "@/types";
+
   
   export function TutorCard({ tutor }: { tutor: Tutor }) {
     const {
-      id,
-      name,
+      user,
+      _id,
+     
       bio,
       subjects,
       hourlyRate,
       rating,
       location,
-      profilePicture,
+      
     } = tutor;
+  
   
     return (
       <Card className="w-full max-w-sm overflow-hidden rounded-2xl shadow-lg transition-all hover:shadow-xl">
         {/* Image with zoom effect */}
         <div className="relative h-64 w-full overflow-hidden">
           <Image
-            src={profilePicture}
-            alt={name}
+            src={"https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
+            alt={user.name}
             fill
             className="object-cover transition-transform duration-500 hover:scale-110"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -37,7 +40,7 @@ import {
           {/* Gradient overlay with name */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end p-4">
             <CardTitle className="text-xl font-semibold text-white">
-              {name}
+              {user.name}
             </CardTitle>
           </div>
         </div>
@@ -72,7 +75,7 @@ import {
           </div>
   
           <Button asChild className="mt-6 w-full">
-            <Link href={`/tutor/${id}`}>View Profile</Link>
+            <Link href={`/tutor/${_id}`}>View Profile</Link>
           </Button>
         </CardContent>
       </Card>
