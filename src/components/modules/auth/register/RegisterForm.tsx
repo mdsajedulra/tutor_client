@@ -53,8 +53,8 @@ export default function RegisterForm() {
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     try {
+      console.log(data);
       const res = await registerUser(data);
-      console.log(res);
       if (res?.success) {
         toast.success(res?.message);
         if (redirect) {

@@ -60,3 +60,14 @@ export type TTokenValidation = {
   isExpired: boolean;
   payload?: TJwtPayload;
 };
+
+export interface IUser {
+  _id: string;
+  name: string;
+  email: string;
+  image?: string; // optional if not always present
+  role: 'student' | 'tutor' | 'admin'; // or whatever roles you have
+  createdAt: Date;
+  updatedAt: Date;
+  __v?: number; // optional as it's a version key from MongoDB
+}

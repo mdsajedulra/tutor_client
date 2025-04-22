@@ -49,8 +49,9 @@ export default function LoginForm() {
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     try {
+      console.log(data);
       const res = await loginUser(data);
-      console.log(res);
+      // console.log(res);
       if (res?.success) {
         toast.success(res?.message);
         if (redirect) {
