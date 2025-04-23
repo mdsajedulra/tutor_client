@@ -39,7 +39,7 @@ useEffect(() => {
   // Check if data exists before mapping
   if (!tutors) return <div>Loading...</div>;
 
-  const handleFilter = (data) =>{
+  const handleFilter = (data: any) =>{
     console.log(data);
 
   }

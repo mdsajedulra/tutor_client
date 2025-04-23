@@ -2,6 +2,7 @@
 import TutorDetailsPage from "@/components/sheared/tutor/TutorDetailsCard";
 import { getTutorById } from "@/services/Tutor";
 
+
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -9,7 +10,7 @@ const TutorDetails = () => {
   const { cardId } = useParams();
   console.log(cardId);
 
-  const [tutor, setTutor] = useState();
+  const [tutor, setTutor] = useState<>();
 
   useEffect(() => {
     const getTutor = async () => {

@@ -1,7 +1,7 @@
 
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel,  SidebarMenu, SidebarMenuButton, SidebarMenuItem, } from "@/components/ui/sidebar";
 
-import { Calendar,  Home, Inbox, Search, Settings } from "lucide-react";
+import { Calendar,  Home, HomeIcon, Inbox, Search, Settings } from "lucide-react";
 import Link from "next/link";
 
 const AppSidebar = () => {
@@ -30,6 +30,11 @@ const AppSidebar = () => {
           title: "Settings",
           url: "#",
           icon: Settings,
+        },
+        {
+          title: "Home",
+          url: "/",
+          icon: HomeIcon,
         },
       ]
     return (

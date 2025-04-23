@@ -39,8 +39,8 @@ export function Avater() {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>My Dashboard</DropdownMenuItem>
-          <DropdownMenuItem>Bookings</DropdownMenuItem>
+          <DropdownMenuItem><Link href="/dashboard">My Dashboard</Link></DropdownMenuItem>
+          <DropdownMenuItem><Link href="/booking">Bookings</Link></DropdownMenuItem>
 
           <DropdownMenuItem>
             My Profile

@@ -1,5 +1,8 @@
+import { BookingModal } from "@/components/modules/booking/bookingModal";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { DialogTrigger } from "@/components/ui/dialog";
+import { useUser } from "@/context/UserContext";
 import { Tutor } from "@/types";
 
 import Image from "next/image";
@@ -7,7 +10,11 @@ import Link from "next/link";
 
 export default function TutorDetailsPage({ tutor }: { tutor: Tutor }) {
   console.log(tutor);
+  const { user } = useUser();
+  console.log(user);
+
   if (!tutor) return <div>Loading...</div>;
+
   const {
     name,
     bio,
@@ -50,9 +57,11 @@ export default function TutorDetailsPage({ tutor }: { tutor: Tutor }) {
               <p>{location}</p>
             </div>
           </div>
-          <Link href={""} className="flex justify-center">
-            <Button className="mt-6 ">Book a Session</Button>
-          </Link>
+          <div className="flex justify-center">
+          
+          <BookingModal tutor={tutor}/>
+
+          </div>
         </div>
       </div>
 

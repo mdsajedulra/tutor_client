@@ -1,21 +1,19 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
-
+"use client"
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-
+import { useRouter } from "next/navigation";
 import { getCurrentUser } from "@/services/AuthService";
 import { useEffect, useState } from "react";
 import { IUser } from "@/types";
-import Select from "react-select";
+import Select from "react-select"; // react-select import
 import { updateTutorProfile } from "@/services/Tutor";
 import { toast } from "sonner";
 import { getSubject } from "@/services/Subject";
-import useImageUpload from "@/hooks/imgbb/ImgHook";
-import { ISubject } from "@/types/subject";
 
 const availableDays = [
   { value: "Monday", label: "Monday" },
@@ -44,15 +42,23 @@ interface TutorFormData {
   location: string;
   availability: AvailabilitySlot[];
 }
-
-export default function TutorForm() {
-  const { register, handleSubmit, control, setValue, watch } =
-    useForm<TutorFormData>({
-      defaultValues: {
-        subjects: [],
-        availability: [],
-      },
-    });
+// export interface ISub {
+//   _id: string
+//   name: string
+//   gradeLevel: string
+//   category: string
+//   createdAt: string
+//   updatedAt: string
+//   __v: number
+// }
+export default function UpdateStudentForm() {
+  const router = useRouter();
+  const { register, handleSubmit, control, reset, setValue } = useForm<TutorFormData>({
+    defaultValues: {
+      subjects: [],
+      availability: [],
+    },
+  });
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -60,10 +66,7 @@ export default function TutorForm() {
   });
 
   const [user, setUser] = useState<IUser | null>(null);
-  const [subject, setSubject] = useState<ISubject[] | null>();
-  const { uploadImage, loading } = useImageUpload(); // 👈 useImageUpload hook call
-
-  const profilePictureUrl = watch("profilePicture"); // 👈 watch profilePicture url
+  const [subject, setSubject] = useState();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -74,40 +77,41 @@ export default function TutorForm() {
     };
     fetchUser();
   }, [setValue]);
-
   useEffect(() => {
     const fetchSubject = async () => {
       const subject = await getSubject();
-      setSubject(subject.data);
+      setSubject(subject)
+      
     };
     fetchSubject();
   }, []);
+  // console.log(subject);
 
-  const subs = subject?.map((sub: { category: string }) => sub?.category);
+  const subs = subject?.data.map((sub: { category: any; }) => (sub?.category))
+
 
   const onSubmit = async (data: TutorFormData) => {
+    
     const updateData = {
       user: user?._id,
       bio: data?.bio,
       subjects: data?.subjects,
       hourlyRate: data?.hourlyRate,
       availability: data?.availability.map((slot) => ({
-        day: slot.day,
+        day: slot.day, // day name only
         startTime: slot.startTime,
         endTime: slot.endTime,
       })),
       location: data?.location,
-      profilePicture: data?.profilePicture,
       email: user?.email,
     };
     console.log(updateData);
-
-    const res = await updateTutorProfile(updateData);
-    if (res.success) {
-      toast.success("Your profile is ready as a tutor");
-    }
-    if (res.success === false) {
-      toast.error(res.message);
+    const res = await updateTutorProfile(updateData)
+   if(res.success) {
+    toast.success("Your profile is ready as a tutor");
+   }
+    if(res.success === false){
+      toast.error(res.message)
     }
   };
 
@@ -128,32 +132,10 @@ export default function TutorForm() {
         <Input disabled type="email" {...register("email")} />
       </div>
 
-      {/* Profile Picture Upload */}
-      <div className="flex flex-col gap-2">
-        <Label>Profile Picture</Label>
-        <Input
-          type="file"
-          accept="image/*"
-          onChange={async (e) => {
-            const file = e.target.files?.[0];
-            if (file) {
-              const imageUrl = await uploadImage(file);
-              if (imageUrl) {
-                setValue("profilePicture", imageUrl);
-              }
-            }
-          }}
-        />
-        {loading && <p className="text-sm text-blue-500">Uploading...</p>}
-
-        {profilePictureUrl && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={profilePictureUrl}
-            alt="Profile"
-            className="w-32 h-32 object-cover rounded-full mt-2"
-          />
-        )}
+      {/* Profile Pic */}
+      <div>
+        <Label>Profile Picture URL</Label>
+        <Input {...register("profilePicture", { required: true })} />
       </div>
 
       {/* Bio */}
@@ -162,7 +144,7 @@ export default function TutorForm() {
         <Textarea {...register("bio", { required: true })} />
       </div>
 
-      {/* Subjects */}
+      {/* Subjects Multi Select */}
       <div className="flex flex-col gap-2">
         <Label>Subjects</Label>
         <Controller
@@ -195,10 +177,7 @@ export default function TutorForm() {
       {/* Hourly Rate */}
       <div>
         <Label>Hourly Rate (BDT)</Label>
-        <Input
-          type="number"
-          {...register("hourlyRate", { required: true, valueAsNumber: true })}
-        />
+        <Input type="number" {...register("hourlyRate", { required: true, valueAsNumber: true })} />
       </div>
 
       {/* Location */}
@@ -213,45 +192,43 @@ export default function TutorForm() {
 
         {fields.map((field, index) => (
           <div key={field.id} className="flex items-center gap-3">
+            {/* Day Selection */}
             <Controller
               control={control}
               name={`availability.${index}.day`}
               render={({ field }) => (
                 <Select
-                  value={availableDays.find(
-                    (option) => option.value === field.value
-                  )}
+                  value={availableDays.find((option) => option.value === field.value)} // bind value correctly
                   options={availableDays}
                   placeholder="Select Day"
-                  onChange={(selectedOption: any) =>
-                    field.onChange(selectedOption?.value)
-                  }
+                  onChange={(selectedOption: any) => field.onChange(selectedOption?.value)} // Store only the day name
                   className="w-1/3"
                 />
               )}
             />
+
+            {/* Start Time */}
             <Input
               type="time"
-              {...register(`availability.${index}.startTime`, {
-                required: true,
-              })}
+              {...register(`availability.${index}.startTime`, { required: true })}
               className="w-1/4"
             />
+
+            {/* End Time */}
             <Input
               type="time"
               {...register(`availability.${index}.endTime`, { required: true })}
               className="w-1/4"
             />
-            <Button
-              type="button"
-              variant="destructive"
-              onClick={() => remove(index)}
-            >
+
+            {/* Remove Button */}
+            <Button type="button" variant="destructive" onClick={() => remove(index)}>
               Remove
             </Button>
           </div>
         ))}
 
+        {/* Add Slot Button */}
         <Button
           type="button"
           onClick={() => append({ day: "", startTime: "", endTime: "" })}
@@ -263,7 +240,7 @@ export default function TutorForm() {
 
       {/* Submit Button */}
       <Button type="submit" className="w-full py-6 text-lg rounded-full">
-        Complete Profile
+        Register as Tutor
       </Button>
     </form>
   );
