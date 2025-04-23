@@ -51,9 +51,9 @@ export function TutorCard({ tutor }: { tutor: Tutor }) {
           </CardDescription>
 
           <div className="flex flex-wrap gap-2">
-            {subjects.map((subject) => (
+            {subjects?.map((subject, index) => (
               <span
-                key={subject}
+                key={index}
                 className="rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-800"
               >
                 {subject}

@@ -1,30 +1,19 @@
 import { BookingModal } from "@/components/modules/booking/bookingModal";
-import { Button } from "@/components/ui/button";
+
 import { Card, CardContent } from "@/components/ui/card";
-import { DialogTrigger } from "@/components/ui/dialog";
-import { useUser } from "@/context/UserContext";
+
+
 import { Tutor } from "@/types";
 
 import Image from "next/image";
-import Link from "next/link";
 
-export default function TutorDetailsPage({ tutor }: { tutor: Tutor }) {
+export default function TutorDetailsPage({ tutor }: { tutor: Tutor | null }) {
   console.log(tutor);
-  const { user } = useUser();
-  console.log(user);
 
   if (!tutor) return <div>Loading...</div>;
 
-  const {
-    name,
-    bio,
-    rating,
-    hourlyRate,
-
-    location,
-    subjects,
-  } = tutor;
-
+  const { name, bio, rating, hourlyRate, user, location, subjects } = tutor;
+  console.log("tutor", tutor);
   return (
     <div className="max-w-5xl mx-auto p-6 space-y-10 flex flex-row-reverse w-full  sm:flex-col xl:flex-row-reverse">
       {/* Top Section */}
@@ -40,7 +29,7 @@ export default function TutorDetailsPage({ tutor }: { tutor: Tutor }) {
             alt="Tutor"
             className="w-40 h-40 rounded-full object-cover border-2 border-primary"
           />
-          <h1 className="text-3xl font-bold">{name}</h1>
+          <h1 className="text-3xl font-bold">{user.name}</h1>
         </div>
         <div className="">
           <p className="text-gray-500 mt-2">{bio}</p>
@@ -58,9 +47,7 @@ export default function TutorDetailsPage({ tutor }: { tutor: Tutor }) {
             </div>
           </div>
           <div className="flex justify-center">
-          
-          <BookingModal tutor={tutor}/>
-
+            <BookingModal tutor={tutor} />
           </div>
         </div>
       </div>
