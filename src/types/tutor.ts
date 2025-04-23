@@ -1,5 +1,7 @@
 // types/teacherTypes.ts
 
+import { IUser } from "./user";
+
 export interface IAvailability {
     day: string;
     startTime: string;
@@ -29,11 +31,18 @@ export interface IAvailability {
   }
   
   export interface ITeacherProfileAdvanced {
-    user: string;
+    user: IUser;
     bio: string;
     subjects: string[];
     hourlyRate: number;
     availability: IAvailabilityAdvanced[];
     ratings: number;
     location: string;
+  }
+
+  export interface TutorResponse {
+    success: boolean, 
+    message: string, 
+    statusCode: number,
+    data: ITeacherProfileAdvanced[]
   }

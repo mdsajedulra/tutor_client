@@ -5,11 +5,14 @@ import { TutorCard } from "@/components/sheared/tutor/TutorCard";
 import { Button } from "@/components/ui/button";
 import { getSubject } from "@/services/Subject";
 import { getTutor } from "@/services/Tutor";
+
+import { TutorResponse } from "@/types/tutor";
 import { useEffect, useState } from "react";
 
 const Page =   () => {
-const [subjects, setSubjects] = useState<any>() 
-const [tutors, setTutors] = useState<any>() 
+const [subjects, setSubjects] = useState<any>(null) 
+const [tutors, setTutors] = useState<TutorResponse| null>(null) 
+console.log(tutors?.data);
 
 useEffect(() => {
   const fetchSubject = async () => {
@@ -67,7 +70,7 @@ useEffect(() => {
       </div>
         
       <div className="grid grid-cols-1 xl:grid-cols-4 sm:grid-cols-1 md:grid-cols-2  gap-5 my-10 justify-items-center ">
-        {tutors?.data.map((tutor: any) => (
+        {tutors.data?.map((tutor: any) => (
           <TutorCard key={tutor._id} tutor={tutor} />
         ))}
       </div>
