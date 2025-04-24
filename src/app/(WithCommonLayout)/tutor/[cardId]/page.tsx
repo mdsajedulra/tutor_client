@@ -1,6 +1,7 @@
 "use client";
 import TutorDetailsPage from "@/components/sheared/tutor/TutorDetailsCard";
-import { getTutorById } from "@/services/Tutor";
+import { getTutorByTutorId } from "@/services/Tutor";
+
 import { Tutor } from "@/types";
 
 
@@ -17,8 +18,9 @@ const TutorDetails = () => {
 
   useEffect(() => {
     const getTutor = async () => {
-      const result = await getTutorById(cardId as string);
+      const result = await getTutorByTutorId(cardId as string);
       setTutor(result?.data);
+      console.log(cardId);
     };
     getTutor();
   }, [cardId]);

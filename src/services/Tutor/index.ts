@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const updateTutorProfile = async (tutorData: any): Promise<any> => {
+export const completeProfile = async (tutorData: any): Promise<any> => {
   // console.log(`${process.env.BACKEND_URL}`);
 
   try {
@@ -22,6 +22,30 @@ export const updateTutorProfile = async (tutorData: any): Promise<any> => {
   }
 };
 
+
+export const updateTutorProfile = async (id: string , tutorData: any): Promise<any> => {
+  // console.log(`${process.env.BACKEND_URL}`);
+
+  try {
+    const res = await fetch(`http://localhost:5000/api/tutor/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify(tutorData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.message || "Failed to update tutor profile");
+    }
+
+    return await res.json();
+  } catch (error: any) {
+    return { success: false, message: error.message };
+  }
+};
+// get all tutor
 export const getTutor = async (
   subject?: string,
   limit?: string,
@@ -37,7 +61,7 @@ export const getTutor = async (
 
 
   try {
-    const res = await fetch(`http://localhost:5000/api/tutor?subject`);
+    const res = await fetch(`http://localhost:5000/api/tutor`);
     const data = await res.json();
     return data;
   } catch (error) {
@@ -46,6 +70,16 @@ export const getTutor = async (
   }
 };
 export const getTutorById = async (id: string) => {
+  try {
+    const res = await fetch(`http://localhost:5000/api/tutor/${id}`);
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Get Tutor Profile Error:", error);
+    // return { success: false, message: error.message };
+  }
+};
+export const getTutorByTutorId = async (id: string) => {
   try {
     const res = await fetch(`http://localhost:5000/api/tutor/${id}`);
     const data = await res.json();

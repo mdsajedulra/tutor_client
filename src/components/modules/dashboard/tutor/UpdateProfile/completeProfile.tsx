@@ -7,15 +7,16 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 
-import { getCurrentUser } from "@/services/AuthService";
 import { useEffect, useState } from "react";
 import { IUser } from "@/types";
 import Select from "react-select";
-import { updateTutorProfile } from "@/services/Tutor";
+
 import { toast } from "sonner";
 import { getSubject } from "@/services/Subject";
 import useImageUpload from "@/hooks/imgbb/ImgHook";
 import { ISubject } from "@/types/subject";
+import { completeProfile } from "@/services/Tutor";
+import { useUser } from "@/context/UserContext";
 
 const availableDays = [
   { value: "Monday", label: "Monday" },
@@ -45,7 +46,7 @@ interface TutorFormData {
   availability: AvailabilitySlot[];
 }
 
-export default function TutorForm() {
+export default function CompleteTutorProfile() {
   const { register, handleSubmit, control, setValue, watch } =
     useForm<TutorFormData>({
       defaultValues: {
@@ -59,21 +60,12 @@ export default function TutorForm() {
     name: "availability",
   });
 
-  const [user, setUser] = useState<IUser | null>(null);
   const [subject, setSubject] = useState<ISubject[] | null>();
   const { uploadImage, loading } = useImageUpload(); // 👈 useImageUpload hook call
 
   const profilePictureUrl = watch("profilePicture"); // 👈 watch profilePicture url
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const user = await getCurrentUser();
-      setUser(user);
-      setValue("name", user?.name || "");
-      setValue("email", user?.email || "");
-    };
-    fetchUser();
-  }, [setValue]);
+  const { user } = useUser();
 
   useEffect(() => {
     const fetchSubject = async () => {
@@ -83,7 +75,7 @@ export default function TutorForm() {
     fetchSubject();
   }, []);
 
-  const subs = subject?.map((sub: { category: string }) => sub?.category);
+  const subs = subject?.map((sub: { name: string }) => sub?.name);
 
   const onSubmit = async (data: TutorFormData) => {
     const updateData = {
@@ -100,9 +92,9 @@ export default function TutorForm() {
       profilePicture: data?.profilePicture,
       email: user?.email,
     };
-    console.log(updateData);
+    console.log("update data", updateData);
 
-    const res = await updateTutorProfile(updateData);
+    const res = await completeProfile(updateData);
     if (res.success) {
       toast.success("Your profile is ready as a tutor");
     }
@@ -119,13 +111,13 @@ export default function TutorForm() {
       {/* Name */}
       <div>
         <Label>Name</Label>
-        <Input disabled {...register("name")} />
+        <Input defaultValue={user?.name} disabled {...register("name")} />
       </div>
 
       {/* Email */}
       <div>
         <Label>Email</Label>
-        <Input disabled type="email" {...register("email")} />
+        <Input defaultValue={user?.email} disabled type="email" {...register("email")} />
       </div>
 
       {/* Profile Picture Upload */}

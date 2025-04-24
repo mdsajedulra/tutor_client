@@ -17,27 +17,21 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-
-import { registerUser } from "@/services/AuthService";
 import { useRouter, useSearchParams } from "next/navigation";
 
+import { registerUser } from "@/services/AuthService";
+
+// Validation Schema
 const formSchema = z.object({
-  name: z.string().min(4, {
-    message: "Please enter name",
-  }),
-  email: z.string().email({
-    message: "Please enter a valid email address.",
-  }),
-  password: z.string().min(6, {
-    message: "Password must be at least 6 characters.",
-  }),
+  name: z.string().min(4, { message: "Please enter name" }),
+  email: z.string().email({ message: "Please enter a valid email address." }),
+  password: z.string().min(6, { message: "Password must be at least 6 characters." }),
 });
 
 export default function StudentRegistrationForm() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirectPath");
-
-  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -50,32 +44,23 @@ export default function StudentRegistrationForm() {
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     try {
-    //   console.log(data);
-      
       const res = await registerUser(data);
-      console.log(res);
       if (res?.success) {
         toast.success(res?.message);
-        if (redirect) {
-          router.push(redirect);
-        } else {
-          router.push("/login");
-        }
+        router.push(redirect || "/login");
       } else {
         toast.error(res?.message);
       }
     } catch (err: any) {
-      console.error("erro", err);
-      toast.error(err?.message);
+      console.error("error", err);
+      toast.error(err?.message || "Something went wrong!");
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen ">
-      <div className="w-full max-w-md p-8 space-y-6  rounded-xl shadow-md">
-      <h2 className="text-2xl font-bold text-center">Create Student Account</h2>
-        {/* <p className="text-sm text-center">On Superprof you can teach over 1,000 subjects! Use the search engine to find the subject you teach and let the fun begin :)</p> */}
-
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="w-full max-w-md p-8 space-y-6 rounded-xl shadow-md">
+        <h2 className="text-2xl font-bold text-center">Create Student Account</h2>
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
@@ -86,12 +71,13 @@ export default function StudentRegistrationForm() {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter your Name" {...field} />
+                    <Input placeholder="Enter your name" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="email"
@@ -113,28 +99,15 @@ export default function StudentRegistrationForm() {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input
-                      type="password"
-                      placeholder="Enter your password"
-                      {...field}
-                    />
+                    <Input type="password" placeholder="Enter your password" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            <div className="text-right">
-              <Link
-                href="/forgot-password"
-                className="text-sm text-blue-600 hover:underline"
-              >
-                {/* Forgot Password? */}
-              </Link>
-            </div>
-            <FormMessage />
             <Button className="w-full" type="submit">
-              Login
+              Register
             </Button>
           </form>
         </Form>

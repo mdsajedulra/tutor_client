@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
+"use client"
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -19,7 +19,8 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 
 import { registerUser } from "@/services/AuthService";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter,  } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string().min(4, {

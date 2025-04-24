@@ -1,5 +1,5 @@
-"use client";
 
+"use client"
 import { Provider } from "react-redux";
 import { store } from "../lib/redux/store";
 import UserProvider from "@/context/UserContext";
@@ -15,7 +15,7 @@ const index = ({ children }: { children: React.ReactNode }) => {
         <Toaster position="top-center" />
         <NextTopLoader />
         <Provider store={store}>{children}</Provider>
-      </UserProvider>
+    </UserProvider>
     </div>
   );
 };

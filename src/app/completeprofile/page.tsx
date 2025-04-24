@@ -1,12 +1,14 @@
-import TutorForm from "@/components/modules/dashboard/tutor/UpdateProfile/UpdateProfileForm";
+import LoginForm from "@/components/modules/auth/login/LoginForm";
+import CompleteTutorProfile from "@/components/modules/dashboard/tutor/UpdateProfile/completeProfile";
 
-const page = () => {
-    return (
-        <>
-        
-<TutorForm/>
-</>
-    );
+
+
+const Page = () => {
+  return (
+   
+    < CompleteTutorProfile/>
+  
+  );
 };
 
-export default page;
+export default Page;

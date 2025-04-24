@@ -3,6 +3,8 @@ import { IUser } from "./user";
 export * from "./user"
 
 export interface AvailabilitySlot {
+    startTime: string;
+    endTime: string;
     day: string;
     slots: string[];
   }

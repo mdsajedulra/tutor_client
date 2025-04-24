@@ -29,7 +29,7 @@ export default function TutorDetailsPage({ tutor }: { tutor: Tutor | null }) {
             alt="Tutor"
             className="w-40 h-40 rounded-full object-cover border-2 border-primary"
           />
-          <h1 className="text-3xl font-bold">{user.name}</h1>
+          <h1 className="text-3xl font-bold">{user?.name}</h1>
         </div>
         <div className="">
           <p className="text-gray-500 mt-2">{bio}</p>
@@ -66,7 +66,7 @@ export default function TutorDetailsPage({ tutor }: { tutor: Tutor | null }) {
           <CardContent className="p-6 space-y-4">
             <h2 className="text-2xl font-semibold">Subjects I Teach</h2>
             <ul className="list-disc list-inside text-gray-600 text-sm space-y-1">
-              {subjects.map((subject, index) => (
+              {subjects?.map((subject, index) => (
                 <li key={index}>{subject}</li>
               ))}
             </ul>

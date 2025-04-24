@@ -1,13 +1,12 @@
-import UpdateProfileForm from "@/components/modules/dashboard/tutor/UpdateProfile/UpdateProfileForm";
+import UpdateProfile from "@/components/modules/dashboard/tutor/UpdateProfile/UpdateProfile";
 
-const UpdateProfile = () => {
+
+const Page = () => {
   return (
     <>
-      <div>
-        <UpdateProfileForm/>
-      </div>
+      <UpdateProfile />
     </>
   );
 };
 
-export default UpdateProfile;
+export default Page;

@@ -1,4 +1,4 @@
-"use client";
+
 
 import { Input } from "@/components/ui/input";
 import { Menu } from "lucide-react";

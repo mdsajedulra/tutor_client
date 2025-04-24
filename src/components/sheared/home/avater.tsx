@@ -9,7 +9,6 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useUser } from "@/context/UserContext";
@@ -39,12 +38,15 @@ export function Avater() {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem><Link href="/dashboard">My Dashboard</Link></DropdownMenuItem>
-          <DropdownMenuItem><Link href="/booking">Bookings</Link></DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link href="/dashboard">My Dashboard</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link href="/dashboard/booking">Booking</Link>
+          </DropdownMenuItem>
 
           <DropdownMenuItem>
-            My Profile
-            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+            <Link href="/dashboard/profile">My Profile</Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />

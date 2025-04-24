@@ -21,7 +21,7 @@ useEffect(() => {
     console.log("Subjects fetched:", subject);
   };
   fetchSubject();
-}, []);
+}, [ ]);
 
 useEffect(() => {
   const fetchTutor = async () => {
@@ -70,8 +70,8 @@ useEffect(() => {
       </div>
         
       <div className="grid grid-cols-1 xl:grid-cols-4 sm:grid-cols-1 md:grid-cols-2  gap-5 my-10 justify-items-center ">
-        {tutors.data?.map((tutor: any) => (
-          <TutorCard key={tutor._id} tutor={tutor} />
+        {tutors?.data?.map((tutor: any) => (
+          <TutorCard key={tutor?._id} tutor={tutor} />
         ))}
       </div>
       </div>
