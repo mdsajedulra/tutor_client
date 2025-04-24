@@ -16,6 +16,7 @@ import { IBooking } from "@/types/booking";
 import { makePayment } from "@/services/Payment";
 import { toast } from "sonner";
 
+
 export function PayModal({ book }: { book: IBooking }) {
   const [hour, setHour] = useState("");
   const [month, setMonth] = useState("");
@@ -23,14 +24,22 @@ export function PayModal({ book }: { book: IBooking }) {
   const handleSubmit =  async() => {
     const data = {
       tutor: book?.tutorId,
+      bookingId : book._id,
       student: book?.studentId,
       selectedHours: hour, 
       selectedMonths: month
     };
     console.log(data);
+    // const toastId = "payment"
+    toast.loading("Payment Processing...")
     const res = await makePayment(data)
+    if (res?.data) {
+        setTimeout(() => {
+          window.location.href = res.data;
+        }, 1000);
+      }
     console.log(res);
-    toast.message(res.message)
+    
     
   };
 
@@ -74,7 +83,7 @@ export function PayModal({ book }: { book: IBooking }) {
         </div>
         <DialogFooter>
           <Button type="button" onClick={handleSubmit}>
-            Save changes
+            Make Payment
           </Button>
         </DialogFooter>
       </DialogContent>

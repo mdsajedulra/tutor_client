@@ -13,7 +13,8 @@ export interface IBooking {
     | "cancelled"
     | "accepted"
     | "rejected"
-    | "paid"; // assuming possible status values
+    | "Pending"
+    | "Paid"; // assuming possible status values
   studentId: string;
   subject: string;
   timeSlot: TimeSlot;

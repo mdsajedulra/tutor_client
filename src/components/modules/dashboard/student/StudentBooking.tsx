@@ -63,19 +63,29 @@ const StudentBookings = () => {
                     ? "bg-yellow-200 text-yellow-800"
                     : booking.status === "accepted"
                     ? "bg-green-200 text-green-800"
+                    : booking.status === "Pending"
+                    ?  "bg-red-500 text-white"
+                    : booking.status === "Paid"
+                    ? "bg-green-500"
                     : "bg-red-200 text-red-800"
+                    
                 }`}
               >
-                {booking.status}
+                {booking.status==="Pending"? <span >{"Payment Failed"}</span>: <span>{booking.status}</span>}
               </span>
             </TableCell>
             <TableCell className="text-center">
-              {booking.status === "accepted" && (
-                <PayModal book={booking}/>
-              )}
+              {booking.status === "accepted" && <PayModal book={booking} />}
               {booking.status === "rejected" && (
-                <span className="text-red-600 italic">Sorry, booking rejected</span>
+                <span className="text-red-600 italic">
+                  Sorry, booking rejected
+                </span>
               )}
+              {/* {booking.status === "Pending" && (
+                <span className="text-red-600 ">
+                  Payment Failed
+                </span>
+              )} */}
             </TableCell>
           </TableRow>
         ))}

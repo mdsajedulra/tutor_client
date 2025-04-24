@@ -51,7 +51,7 @@ if(user?.role ==="student"){
     },
     {
       title: "My Booking",
-      url: "/dashboard/booking",
+      url: "/dashboard/student/booking",
       icon: Inbox,
     },
     {
