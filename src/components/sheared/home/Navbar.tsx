@@ -1,8 +1,11 @@
-import { Button } from "@/components/ui/button";
+
+
 import { Input } from "@/components/ui/input";
 import { Menu } from "lucide-react";
 import Link from "next/link";
 import { ModeToggle } from "../dark/dark";
+
+import { Avater } from "./avater";
 
 export default function Navbar() {
   return (
@@ -18,27 +21,16 @@ export default function Navbar() {
       </div>
 
       {/* Buttons */}
-      <div className="flex items-center gap-4">
-        <Link href="/signupstudent">
-        <Button variant="outline">Sign Up as Student</Button>
-         
-        </Link>
-        <Link href="/signuptutor">
-          <Button>Register as Tutor</Button>
 
-        </Link>
-        <div>
-        <ModeToggle/>
-
-        </div>
+      <div>
+        <ModeToggle />
       </div>
-
+      <Avater />
       {/* Mobile Menu Icon */}
       <div className="md:hidden">
         <Menu className="h-6 w-6" />
       </div>
-      <div className="md:hidden">
-      </div>
+      <div className="md:hidden"></div>
     </nav>
   );
 }

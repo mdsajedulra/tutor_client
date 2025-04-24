@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
+"use client"
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import {toast} from "sonner";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -18,14 +18,12 @@ import {
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 
-
-
 import { registerUser } from "@/services/AuthService";
-import {  useRouter, useSearchParams } from "next/navigation";
-
+import { useRouter,  } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 const formSchema = z.object({
-  name: z.string().min(4,{
+  name: z.string().min(4, {
     message: "Please enter name",
   }),
   email: z.string().email({
@@ -37,15 +35,15 @@ const formSchema = z.object({
 });
 
 export default function RegisterForm() {
-    const searchParams = useSearchParams();
-    const redirect = searchParams.get("redirectPath");
-    
-    const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirectPath");
+
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-        name: "name",
+      name: "name",
       email: "tanvir1@example.com",
       password: "123456",
     },
@@ -53,7 +51,12 @@ export default function RegisterForm() {
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     try {
-      const res = await registerUser(data);
+      const updateData = {
+        ...data,
+        role: "tutor"
+      }
+      console.log(updateData);
+      const res = await registerUser(updateData);
       console.log(res);
       if (res?.success) {
         toast.success(res?.message);
@@ -64,18 +67,19 @@ export default function RegisterForm() {
         }
       } else {
         toast.error(res?.message);
-    }
-} catch (err: any) {
-        toast.error(err?.message);
-    //   console.error("erro", err);
+      }
+    } catch (err: any) {
+      console.error("erro", err);
+      toast.error(err?.message);
     }
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen ">
       <div className="w-full max-w-md p-8 space-y-6  rounded-xl shadow-md">
-        <h2 className="text-2xl font-bold text-center">Welcome Back</h2>
-        <p className="text-sm text-center">Please login to your account</p>
+      <h2 className="text-2xl font-bold text-center">Good to know</h2>
+        <p className="text-sm text-center">On Superprof you can teach over 1,000 subjects! Use the search engine to find the subject you teach and let the fun begin :)</p>
+
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
@@ -129,10 +133,10 @@ export default function RegisterForm() {
                 href="/forgot-password"
                 className="text-sm text-blue-600 hover:underline"
               >
-                Forgot Password?
+                {/* Forgot Password? */}
               </Link>
             </div>
-            <FormMessage  />
+            <FormMessage />
             <Button className="w-full" type="submit">
               Login
             </Button>
@@ -140,9 +144,9 @@ export default function RegisterForm() {
         </Form>
 
         <p className="text-center text-sm text-gray-600">
-          Don&apos;t have an account?{" "}
-          <Link href="/register" className="text-blue-600 hover:underline">
-            Create one
+          Already have an account?{" "}
+          <Link href="/login" className="text-blue-600 hover:underline">
+            Log in
           </Link>
         </p>
       </div>

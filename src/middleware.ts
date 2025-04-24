@@ -1,50 +1,26 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getCurrentUser } from "./services/AuthService";
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
-type Role = keyof typeof roleBasedPrivateRoutes;
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-const authRoutes = ["/login", "/register"];
-
-const roleBasedPrivateRoutes = {
-  user: [/^\/user/, /^\/create-shop/],
-  admin: [/^\/admin/],
-};
-
-export const middleware = async (request: NextRequest) => {
+export function middleware(request: NextRequest) {
+  const token = request.cookies.get("accessToken")?.value;
   const { pathname } = request.nextUrl;
 
-  const userInfo = await getCurrentUser();
 
-  if (!userInfo) {
-    if (authRoutes.includes(pathname)) {
-      return NextResponse.next();
-    } else {
-      return NextResponse.redirect(
-        new URL(
-          `http://localhost:3000/login?redirectPath=${pathname}`,
-          request.url
-        )
-      );
-    }
+  if (!token && pathname.startsWith("/dashboard")) {
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  if (userInfo?.role && roleBasedPrivateRoutes[userInfo?.role as Role]) {
-    const routes = roleBasedPrivateRoutes[userInfo?.role as Role];
-    if (routes.some((route) => pathname.match(route))) {
-      return NextResponse.next();
-    }
+  if (token && pathname.startsWith("/login")) {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
-  return NextResponse.redirect(new URL("/", request.url));
-};
+
+  return NextResponse.next();
+}
+
 
 export const config = {
-  matcher: [
-    "/login",
-    "/create-shop",
-    "/admin",
-    "/admin/:page",
-    "/user",
-    "/user/:page",
-  ],
+  matcher: ["/dashboard/:path*", "/login"],
 };

@@ -1,45 +1,77 @@
+"use client"
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+} from "@/components/ui/sidebar";
+import { useUser } from "@/context/UserContext";
 
-import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel,  SidebarMenu, SidebarMenuButton, SidebarMenuItem, } from "@/components/ui/sidebar";
-
-import { Calendar,  Home, Inbox, Search, Settings } from "lucide-react";
+import { Home, HomeIcon, Inbox } from "lucide-react";
 import Link from "next/link";
 
 const AppSidebar = () => {
-    const items = [
-        {
-          title: "Profile Info",
-          url: "profile",
-          icon: Home,
-        },
-        {
-          title: "My Bookings",
-          url: "bookings",
-          icon: Inbox,
-        },
-        {
-          title: "Calendar",
-          url: "#",
-          icon: Calendar,
-        },
-        {
-          title: "Search",
-          url: "#",
-          icon: Search,
-        },
-        {
-          title: "Settings",
-          url: "#",
-          icon: Settings,
-        },
-      ]
-    return (
-        <Sidebar>
-        <SidebarContent>
+const {user} = useUser()
+if(!user) {
+  return <div>Loading...</div>
+}
+
+let route;
+
+if(user?.role === "tutor"){
+  route = [
+    {
+      title: "Profile Info",
+      url: "/dashboard/profile",
+      icon: Home,
+    },
+    {
+      title: "Manage Booking",
+      url: "/dashboard/booking",
+      icon: Inbox,
+    },
+    {
+      title: "Home",
+      url: "/",
+      icon: HomeIcon,
+    },
+  ];
+}
+if(user?.role ==="student"){
+   route = [
+    {
+      title: "Profile Info",
+      url: "/dashboard/profile",
+      icon: Home,
+    },
+    {
+      title: "My Booking",
+      url: "/dashboard/booking",
+      icon: Inbox,
+    },
+    {
+      title: "Home",
+      url: "/",
+      icon: HomeIcon,
+    },
+  ];
+}
+
+
+ 
+  return (
+    <Sidebar>
+      <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Application</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
+              {route?.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <Link href={item.url}>
@@ -52,10 +84,14 @@ const AppSidebar = () => {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        </SidebarContent>
-      </Sidebar>
-      
-    );
+        <SidebarFooter>
+          <Link className="border text-center mt-100" href="/">
+            Back to home
+          </Link>
+        </SidebarFooter>
+      </SidebarContent>
+    </Sidebar>
+  );
 };
 
 export default AppSidebar;

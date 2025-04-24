@@ -1,24 +1,19 @@
-import { Button } from "@/components/ui/button";
+import { BookingModal } from "@/components/modules/booking/bookingModal";
+
 import { Card, CardContent } from "@/components/ui/card";
+
+
 import { Tutor } from "@/types";
-import { DollarSign } from "lucide-react";
+
 import Image from "next/image";
-import Link from "next/link";
 
-export default function TutorDetailsPage({ tutor }: { tutor: Tutor }) {
+export default function TutorDetailsPage({ tutor }: { tutor: Tutor | null }) {
+  console.log(tutor);
+
   if (!tutor) return <div>Loading...</div>;
-  const {
-    profilePicture,
-    name,
-    bio,
-    rating,
-    hourlyRate,
-    availability,
-    location,
-    subjects,
-    id,
-  } = tutor;
 
+  const { name, bio, rating, hourlyRate, user, location, subjects } = tutor;
+  console.log("tutor", tutor);
   return (
     <div className="max-w-5xl mx-auto p-6 space-y-10 flex flex-row-reverse w-full  sm:flex-col xl:flex-row-reverse">
       {/* Top Section */}
@@ -26,33 +21,34 @@ export default function TutorDetailsPage({ tutor }: { tutor: Tutor }) {
       <div className="flex flex-col items-center gap-8 p-5 rounded-2xl shadow-xl w-4/12 h-2/4 sm:w-full">
         <div>
           <Image
-            height="50"
-            width="5"
-            src={profilePicture}
+            height="100"
+            width="100"
+            src={
+              "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            }
             alt="Tutor"
             className="w-40 h-40 rounded-full object-cover border-2 border-primary"
           />
-          <h1 className="text-3xl font-bold">{name}</h1>
+          <h1 className="text-3xl font-bold">{user?.name}</h1>
         </div>
         <div className="">
           <p className="text-gray-500 mt-2">{bio}</p>
           <div className="mt-4 text-gray-600 space-y-1 text-sm flex justify-between">
-          <div>
-          <p>💵 Rate:</p>
-          
-            <p>⭐ Rating:</p>
-            <p>📍 Location:</p>
-          </div>
+            <div>
+              <p>💵 Rate:</p>
+
+              <p>⭐ Rating:</p>
+              <p>📍 Location:</p>
+            </div>
             <div>
               <p>{hourlyRate}/hr</p>
               <p>{rating}/5 (120 Reviews)</p>
               <p>{location}</p>
             </div>
           </div>
-        <Link href={""} className="flex justify-center">
-        <Button className="mt-6 ">Book a Session</Button>
-        
-        </Link>
+          <div className="flex justify-center">
+            <BookingModal tutor={tutor} />
+          </div>
         </div>
       </div>
 
@@ -70,7 +66,7 @@ export default function TutorDetailsPage({ tutor }: { tutor: Tutor }) {
           <CardContent className="p-6 space-y-4">
             <h2 className="text-2xl font-semibold">Subjects I Teach</h2>
             <ul className="list-disc list-inside text-gray-600 text-sm space-y-1">
-              {subjects.map((subject, index) => (
+              {subjects?.map((subject, index) => (
                 <li key={index}>{subject}</li>
               ))}
             </ul>

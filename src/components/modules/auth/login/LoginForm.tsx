@@ -1,10 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import {toast} from "sonner";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner";
+import { useRouter, useSearchParams } from "next/navigation";
+
 
 import { Button } from "@/components/ui/button";
 import {
@@ -17,12 +20,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-
-
-
 import { loginUser } from "@/services/AuthService";
-import {  useRouter, useSearchParams } from "next/navigation";
-
 
 const formSchema = z.object({
   email: z.string().email({
@@ -34,10 +32,11 @@ const formSchema = z.object({
 });
 
 export default function LoginForm() {
-    const searchParams = useSearchParams();
-    const redirect = searchParams.get("redirectPath");
-    
-    const router = useRouter();
+  const [isMounted, setIsMounted] = useState(false);
+
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirectPath");
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -47,28 +46,34 @@ export default function LoginForm() {
     },
   });
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return <div>Loading...</div>;
+  }
+
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    console.log(data);
     try {
       const res = await loginUser(data);
-      console.log(res);
+  
       if (res?.success) {
-        toast.success(res?.message);
-        if (redirect) {
-          router.push(redirect);
-        } else {
-          router.push("/profile");
-        }
+        toast.success(res.message);
+        router.push(redirect ? redirect : "/dashboard");
       } else {
-        toast.error(res?.message);
+        toast.error(res?.message || "An error occurred during login.");
       }
     } catch (err: any) {
       console.error(err);
+      toast.error("Something went wrong. Please try again.");
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen ">
-      <div className="w-full max-w-md p-8 space-y-6  rounded-xl shadow-md">
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="w-full max-w-md p-8 space-y-6 rounded-xl shadow-md">
         <h2 className="text-2xl font-bold text-center">Welcome Back</h2>
         <p className="text-sm text-center">Please login to your account</p>
 
@@ -114,7 +119,7 @@ export default function LoginForm() {
                 Forgot Password?
               </Link>
             </div>
-            <FormMessage  />
+
             <Button className="w-full" type="submit">
               Login
             </Button>
@@ -122,9 +127,13 @@ export default function LoginForm() {
         </Form>
 
         <p className="text-center text-sm text-gray-600">
-          Don&apos;t have an account?{" "}
-          <Link href="/register" className="text-blue-600 hover:underline">
-            Create one
+          Don&apos;t have an account? <br />
+          <Link href="/signupstudent" className="text-blue-600 hover:underline">
+            Register as a Student
+          </Link>
+          <br />
+          <Link href="/signuptutor" className="text-blue-600 hover:underline">
+            Register as a Tutor
           </Link>
         </p>
       </div>

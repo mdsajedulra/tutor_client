@@ -1,12 +1,16 @@
+import { IUser } from "./user";
+
 export * from "./user"
 
 export interface AvailabilitySlot {
+    startTime: string;
+    endTime: string;
     day: string;
     slots: string[];
   }
   
   export interface Tutor {
-    id: string;
+    _id: string;
     name: string;
     profilePicture: string;
     bio: string;
@@ -15,5 +19,6 @@ export interface AvailabilitySlot {
     rating: number;
     location: string;
     availability: AvailabilitySlot[];
+    user: IUser
   }
 

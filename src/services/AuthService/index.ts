@@ -1,3 +1,4 @@
+
 "use server"
 import { cookies } from "next/headers";
 import { jwtDecode } from "jwt-decode";
@@ -23,6 +24,7 @@ export const registerUser = async (userData: loginUserData) => {
   }
 };
 export const loginUser = async (userData: loginUserData) => {
+
   try {
     const res = await fetch(`${process.env.BACKEND_URL}/auth/login`, {
       method: "POST",
@@ -33,7 +35,7 @@ export const loginUser = async (userData: loginUserData) => {
     });
     const result = await res.json();
     if (result.success) {
-      console.log(result?.token);
+      console.log("test token", result?.token);
       (await cookies()).set("accessToken", result?.token);
     }
     return result;
@@ -45,10 +47,28 @@ export const loginUser = async (userData: loginUserData) => {
 // accesstoken access from cookies
 
 export const getCurrentUser = async () => {
-  const accessToken = (await cookies()).get("accessToken")!.value;
+  const tokenData = (await cookies()).get("accessToken");
+  console.log("token test", tokenData);
+  const accessToken = tokenData?.value; // safe check
   let decodedData = null;
   if (accessToken) {
     decodedData = await jwtDecode(accessToken);
-    return decodedData;
+    console.log(decodedData.email);
+    const res = await fetch(
+      `${process.env.BACKEND_URL}/users/${decodedData?.email}`,
+      {
+        cache: "no-store",
+      }
+    );
+    const user = await res.json();
+    if (user?.data) {
+      return user?.data;
+    }
   } else return null;
+};
+
+// logout
+
+export const logout = async () => {
+  (await cookies()).delete("accessToken");
 };
