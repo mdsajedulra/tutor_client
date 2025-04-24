@@ -1,32 +1,27 @@
-"use client";
-import TutorDetailsPage from "@/components/sheared/tutor/TutorDetailsCard";
-import { getTutorById } from "@/services/Tutor";
-import { Tutor } from "@/types";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import TutorDetailsBookingUI from "@/components/sheared/tutor/TutorDetailsPage";
+import { getSingleTutorDetails } from "@/services/Tutor";
 
-const TutorDetails = () => {
-  const { cardId } = useParams();
-  console.log(cardId);
 
-  const [tutor, setTutor] = useState<Tutor | null >(null);
- 
+const TutorDetails = async({params}:any) => {
   
+  
+  const data = await getSingleTutorDetails(params.cardId);
+  console.log('tutor data', data.data);
 
-  useEffect(() => {
-    const getTutor = async () => {
-      const result = await getTutorById(cardId as string);
-      setTutor(result?.data);
-    };
-    getTutor();
-  }, [cardId]);
- 
+  const tutorData = data.data
 
-  return <>
-  <TutorDetailsPage tutor={tutor} key={tutor?._id}/>
-  </>;
+
+
+  return (
+    <div>
+      {/* <TutorDetailsPage></TutorDetailsPage> */}
+      this is details page
+      <TutorDetailsBookingUI {...tutorData}></TutorDetailsBookingUI>
+    </div>
+  )
 };
 
 export default TutorDetails;

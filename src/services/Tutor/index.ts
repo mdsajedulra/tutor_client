@@ -55,3 +55,26 @@ export const getTutorById = async (id: string) => {
     // return { success: false, message: error.message };
   }
 };
+
+
+
+export const getAllTutor = async()=>{
+  const res = await fetch ('http://localhost:5000/api/tutor', {
+      next: {
+        revalidate: 5,
+      },
+    });
+  return res.json();
+}
+
+
+
+export const getSingleTutorDetails = async(tutorId:any)=>{
+  console.log('this is tutor id', tutorId);
+  const res = await fetch (`http://localhost:5000/api/tutor/${tutorId}`,{
+      next:{
+          revalidate: 5,
+      },
+  });
+  return res.json();
+}

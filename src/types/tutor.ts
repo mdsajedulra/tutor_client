@@ -7,7 +7,7 @@ export interface IAvailability {
     startTime: string;
     endTime: string;
   }
-  
+
   export interface ITeacherProfile {
     user: string;
     bio: string;
@@ -17,19 +17,19 @@ export interface IAvailability {
     ratings: number;
     location: string;
   }
-  
+
   // উন্নত সংস্করণ (ঐচ্ছিক)
   export enum WeekDay {
     MONDAY = 'Monday',
     // ... অন্যান্য দিন
   }
-  
+
   export interface IAvailabilityAdvanced {
     day: WeekDay;
     startTime: string;
     endTime: string;
   }
-  
+
   export interface ITeacherProfileAdvanced {
     user: IUser;
     bio: string;
