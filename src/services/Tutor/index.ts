@@ -69,9 +69,9 @@ export const getTutor = async (
     // return { success: false, message: error.message };
   }
 };
-export const getTutorById = async (id: string) => {
+export const getTutorByUserId = async (id: string) => {
   try {
-    const res = await fetch(`http://localhost:5000/api/tutor/${id}`);
+    const res = await fetch(`http://localhost:5000/api/tutor/tutorid/${id}`);
     const data = await res.json();
     return data;
   } catch (error) {
@@ -80,6 +80,7 @@ export const getTutorById = async (id: string) => {
   }
 };
 export const getTutorByTutorId = async (id: string) => {
+  console.log( "test", id);
   try {
     const res = await fetch(`http://localhost:5000/api/tutor/${id}`);
     const data = await res.json();

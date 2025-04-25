@@ -17,6 +17,7 @@ import {
 import { IBooking } from "@/types/booking";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
+import Loader from "@/components/sheared/spinner/spinner";
 
 const BookingRequest = () => {
   const [bookingReq, setBookingReq] = useState<IBooking[]>([]);
@@ -53,7 +54,7 @@ const BookingRequest = () => {
     );
   };
 
-  if (!user) return <div>Loading...</div>;
+  if (!user) return <div><Loader/></div>;
 
   return (
     <Table>

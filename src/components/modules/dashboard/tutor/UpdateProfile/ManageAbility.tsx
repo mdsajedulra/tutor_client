@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
 
 import Select from "react-select";
-import { getTutorById, updateTutorProfile } from "@/services/Tutor";
+import { getTutorByUserId, updateTutorProfile } from "@/services/Tutor";
 import { toast } from "sonner";
 import { useUser } from "@/context/UserContext";
 
@@ -54,17 +54,16 @@ export default function ManageAvailability() {
     name: "availability",
   });
 
-
   const [tutor, setTutor] = useState<any>(null);
 
   // 1st: Fetch user
-const {user} =useUser()
+  const { user } = useUser();
 
   // 2nd: Fetch tutor info
   useEffect(() => {
     const fetchTutor = async () => {
       if (!user?._id) return;
-      const tutor = await getTutorById(user._id);
+      const tutor = await getTutorByUserId(user._id);
       setTutor(tutor);
     };
     fetchTutor();
@@ -104,11 +103,14 @@ const {user} =useUser()
       {/* Availability Slots */}
       <div className="flex flex-col gap-4">
         <Label>
-          <div className="text-2xl">Availability</div>
-          <p>
-            If you remove every slot and update yoru availability slot you
-            student showing you are not available right now
-          </p>
+          <div>
+            <div className="text-2xl">Availability</div>
+
+            <p className="text-red-600 my-5">
+              If you remove all slots and update your availability, students
+              will see that you are currently not available
+            </p>
+          </div>
         </Label>
 
         {fields.map((field, index) => (

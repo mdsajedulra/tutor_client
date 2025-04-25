@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
@@ -6,17 +7,15 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-
 import { useEffect, useState } from "react";
-
 import Select from "react-select";
-
 import { getSubject } from "@/services/Subject";
-
 import { ISubject } from "@/types/subject";
-import { updateTutorProfile } from "@/services/Tutor";
+import { getTutorByUserId, updateTutorProfile } from "@/services/Tutor";
 import { toast } from "sonner";
 import { useUser } from "@/context/UserContext";
+import { ITeacherProfileAdvanced } from "@/types/tutor";
+import Link from "next/link";
 
 const availableDays = [
   { value: "Monday", label: "Monday" },
@@ -47,7 +46,8 @@ interface TutorFormData {
 }
 
 export default function UpdateProfile() {
-  const { register, handleSubmit, control } = useForm<TutorFormData>({
+  const { user } = useUser();
+  const { register, handleSubmit, control, setValue } = useForm<TutorFormData>({
     defaultValues: {
       subjects: [],
       availability: [],
@@ -59,30 +59,17 @@ export default function UpdateProfile() {
     name: "availability",
   });
 
+  const [tutor, setTutor] = useState<ITeacherProfileAdvanced | null>();
   const [subject, setSubject] = useState<ISubject[] | null>();
-  // const { uploadImage, loading } = useImageUpload(); // 👈 useImageUpload hook call
 
-  // const profilePictureUrl = watch("profilePicture"); // 👈 watch profilePicture url
-
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     const user = await getCurrentUser();
-  //     setUser(user);
-  //     setValue("name", user?.name || "");
-  //     setValue("email", user?.email || "");
-  //   };
-  //   fetchUser();
-  // }, [setValue]);
-  const { user } = useUser();
-  console.log(user);
   useEffect(() => {
     const fetchSubject = async () => {
       const subject = await getSubject();
-      setSubject(subject.data);
+      setSubject(subject?.data);
     };
     fetchSubject();
   }, []);
-  console.log(subject);
+
   const subs = subject?.map((sub) => sub?.name);
 
   const onSubmit = async (data: TutorFormData) => {
@@ -100,27 +87,42 @@ export default function UpdateProfile() {
       profilePicture: data?.profilePicture,
       email: user?.email,
     };
-    // console.log(updateData);
 
     const userId = user?._id as string;
-
     const res = await updateTutorProfile(userId, updateData);
-    console.log(res);
+
     if (res.success) {
       toast.success(res?.message);
-    }
-    if (res.success === false) {
+    } else {
       toast.error(res.message);
     }
   };
 
+  useEffect(() => {
+    const fetchTutorData = async () => {
+      const res = await getTutorByUserId(user?._id as string);
+      const fetchedTutor = res?.data;
+      setTutor(fetchedTutor);
+
+      if (fetchedTutor) {
+        setValue("bio", fetchedTutor.bio || "");
+        setValue("hourlyRate", fetchedTutor.hourlyRate || 0);
+        setValue("location", fetchedTutor.location || "");
+        setValue("availability", fetchedTutor.availability || []);
+        setValue("subjects", fetchedTutor.subjects || []);
+      }
+    };
+    fetchTutorData();
+  }, [user?._id, setValue]);
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-6 max-w-3xl mx-auto p-6  rounded-xl shadow border w-full"
+      className="space-y-6 max-w-3xl mx-auto p-6 rounded-xl shadow border w-full"
     >
-      {/* Name */}
       <div className="text-center font-bold text-3xl">Manage Profile</div>
+
+      {/* Name */}
       <div>
         <Label>Name</Label>
         <Input defaultValue={user?.name} disabled {...register("name")} />
@@ -130,40 +132,12 @@ export default function UpdateProfile() {
       <div>
         <Label>Email</Label>
         <Input
-          disabled
           defaultValue={user?.email}
+          disabled
           type="email"
           {...register("email")}
         />
       </div>
-
-      {/* Profile Picture Upload */}
-      {/* <div className="flex flex-col gap-2">
-        <Label>Profile Picture</Label>
-        <Input
-          type="file"
-          accept="image/*"
-          onChange={async (e) => {
-            const file = e.target.files?.[0];
-            if (file) {
-              const imageUrl = await uploadImage(file);
-              if (imageUrl) {
-                setValue("profilePicture", imageUrl);
-              }
-            }
-          }}
-        />
-        {loading && <p className="text-sm text-blue-500">Uploading...</p>}
-
-        {profilePictureUrl && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={profilePictureUrl}
-            alt="Profile"
-            className="w-32 h-32 object-cover rounded-full mt-2"
-          />
-        )}
-      </div> */}
 
       {/* Bio */}
       <div>
@@ -200,13 +174,14 @@ export default function UpdateProfile() {
           )}
         />
       </div>
-
+          <div>If your subject is not listed, please go to Subject Management and add it there. <Link className="text-blue-700 underline" href="/dashboard/subjectmanage">Click Here</Link></div>
       {/* Hourly Rate */}
       <div>
         <Label>Hourly Rate (BDT)</Label>
         <Input
           type="number"
           {...register("hourlyRate", { required: true, valueAsNumber: true })}
+          
         />
       </div>
 
@@ -216,10 +191,9 @@ export default function UpdateProfile() {
         <Input {...register("location", { required: true })} />
       </div>
 
-      {/* Availability Slots */}
+      {/* Availability */}
       <div className="flex flex-col gap-4">
         <Label>Availability</Label>
-
         {fields.map((field, index) => (
           <div key={field.id} className="flex items-center gap-3">
             <Controller
@@ -227,7 +201,6 @@ export default function UpdateProfile() {
               name={`availability.${index}.day`}
               render={({ field }) => (
                 <Select
-                  required= {true}
                   value={availableDays.find(
                     (option) => option.value === field.value
                   )}
@@ -261,17 +234,14 @@ export default function UpdateProfile() {
             </Button>
           </div>
         ))}
-
         <Button
           type="button"
           onClick={() => append({ day: "", startTime: "", endTime: "" })}
-          className="w-fit"
         >
           + Add Slot
         </Button>
       </div>
 
-      {/* Submit Button */}
       <Button type="submit" className="w-full py-6 text-lg rounded-full">
         Complete Profile
       </Button>

@@ -1,4 +1,5 @@
 "use client"
+import Loader from "@/components/sheared/spinner/spinner";
 import {
   Sidebar,
   SidebarContent,
@@ -18,7 +19,7 @@ import Link from "next/link";
 const AppSidebar = () => {
 const {user} = useUser()
 if(!user) {
-  return <div>Loading...</div>
+  return <div><Loader/></div>
 }
 
 let route;
@@ -31,13 +32,23 @@ if(user?.role === "tutor"){
       icon: Home,
     },
     {
+      title: "Manage Profile",
+      url: "/dashboard/updateprofile",
+      icon: Inbox,
+    },
+    {
       title: "Manage Booking",
       url: "/dashboard/booking",
       icon: Inbox,
     },
     {
-      title: "Home",
-      url: "/",
+      title: "Manage Subject",
+      url: "/dashboard/subject",
+      icon: Inbox,
+    },
+    {
+      title: "Manage Availability (Time slot)",
+      url: "/dashboard/manageavailability",
       icon: HomeIcon,
     },
   ];

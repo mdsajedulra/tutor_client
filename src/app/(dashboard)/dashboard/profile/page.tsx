@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 
 import { useUser } from "@/context/UserContext";
+import Loader from "@/components/sheared/spinner/spinner";
 
 export default function UserProfile() {
 
@@ -14,7 +15,7 @@ const {user } = useUser()
 console.log(user);
 
   if (!user) {
-    return <div className="text-center py-10">Loading...</div>;
+    return <div className="text-center py-10"><Loader/></div>;
   }
 
   return (

@@ -44,5 +44,5 @@ export interface IAvailability {
     success: boolean, 
     message: string, 
     statusCode: number,
-    data: ITeacherProfileAdvanced[]
+    data: ITeacherProfileAdvanced[] 
   }

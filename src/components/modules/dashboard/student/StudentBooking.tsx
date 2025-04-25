@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { getBookingByStudentId } from "@/services/booking";
 import { PayModal } from "../../payment/PayModal";
+import Loader from "@/components/sheared/spinner/spinner";
 
 const StudentBookings = () => {
   const [bookings, setBookings] = useState<IBooking[]>([]);
@@ -36,7 +37,7 @@ const StudentBookings = () => {
     fetchBookings();
   }, [user?._id]);
 
-  if (!user) return <div>Loading...</div>;
+  if (!user) return <div><Loader/></div>;
 
   return (
     <Table>

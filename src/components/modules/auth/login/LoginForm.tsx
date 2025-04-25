@@ -21,6 +21,7 @@ import {
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { loginUser } from "@/services/AuthService";
+import Loader from "@/components/sheared/spinner/spinner";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -51,7 +52,7 @@ export default function LoginForm() {
   }, []);
 
   if (!isMounted) {
-    return <div>Loading...</div>;
+    return <div><Loader/></div>;
   }
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {

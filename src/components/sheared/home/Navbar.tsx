@@ -1,7 +1,7 @@
-import { Input } from "@/components/ui/input";
+
 import { Menu } from "lucide-react";
 import Link from "next/link";
-import { ModeToggle } from "../dark/dark";
+
 
 import { Avater } from "./avater";
 

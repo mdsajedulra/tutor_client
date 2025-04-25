@@ -1,9 +1,10 @@
-import UpdateProfile from "@/components/modules/dashboard/tutor/UpdateProfile/UpdateProfile";
+import Dashboard from "@/components/modules/dashboard/tutor/dashboard";
+
 
 const Profile = () => {
   return (
     <>
-      <UpdateProfile />
+      <Dashboard/>
     </>
   );
 };

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+import Loader from "@/components/sheared/spinner/spinner";
 import Sidebar from "@/components/sheared/tutor/Sidebar";
 import { TutorCard } from "@/components/sheared/tutor/TutorCard";
 import { Button } from "@/components/ui/button";
@@ -40,7 +41,7 @@ useEffect(() => {
 
 
   // Check if data exists before mapping
-  if (!tutors) return <div>Loading...</div>;
+  if (!tutors) return <div><Loader/></div>;
 
   const handleFilter = (data: any) =>{
     console.log(data);
