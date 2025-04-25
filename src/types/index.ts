@@ -12,7 +12,7 @@ export interface AvailabilitySlot {
   export interface Tutor {
     _id: string;
     name: string;
-    profilePicture: string;
+    image: string;
     bio: string;
     subjects: string[];
     hourlyRate: number;

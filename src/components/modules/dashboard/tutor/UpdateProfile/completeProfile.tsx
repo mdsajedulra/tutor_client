@@ -100,6 +100,7 @@ export default function CompleteTutorProfile() {
       location: data?.location,
       image: data?.profilePicture,
       email: user?.email,
+      name: user?.name,
     };
     console.log("update data", updateData);
 

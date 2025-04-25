@@ -10,7 +10,7 @@ import Image from "next/image";
 export default function TutorDetailsPage({ tutor }: { tutor: Tutor | null }) {
   if (!tutor) return <div className="text-center py-10 text-muted-foreground">Loading...</div>;
 
-  const { name, bio, ratings, hourlyRate, user, location, subjects } = tutor;
+  const { name, bio, ratings, hourlyRate, user, location, subjects ,image } = tutor;
 
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-10 flex flex-col xl:flex-row-reverse gap-10">
@@ -19,11 +19,15 @@ export default function TutorDetailsPage({ tutor }: { tutor: Tutor | null }) {
         <Image
           height={160}
           width={160}
-          src={"https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
+          src={
+            image
+              ? image
+              : "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          }
           alt="Tutor"
-          className="w-40 h-40 rounded-full object-cover border-4 border-primary shadow-sm"
+          className="w-40 h-40 rounded-full object-cover border-4 border-primary shadow-sm "
         />
-        <h1 className="text-xl font-bold text-center">{user?.name}</h1>
+        <h1 className="text-xl font-bold text-center">{name}</h1>
         <p className="text-muted-foreground text-center px-4">{bio}</p>
         <div className="text-sm text-foreground w-full space-y-2">
           <div className="flex justify-between">

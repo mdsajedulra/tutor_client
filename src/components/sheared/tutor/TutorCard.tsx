@@ -9,22 +9,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { Tutor } from "./tutor";
 
-
 interface Props {
   tutor: Tutor;
 }
 
 export function TutorCard({ tutor }: Props) {
-  const {
-    
-    _id,
-    name,
-    bio,
-    subjects,
-    hourlyRate,
-    ratings,
-    location,
-  } = tutor;
+  const { _id, name, bio, subjects, hourlyRate, ratings, location, image } =
+    tutor;
 
   return (
     <Card className="w-full max-w-sm overflow-hidden rounded-2xl shadow-lg transition-all hover:shadow-xl">
@@ -32,7 +23,9 @@ export function TutorCard({ tutor }: Props) {
       <div className="relative h-64 w-full overflow-hidden">
         <Image
           src={
-            "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            image
+              ? image
+              : "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           }
           alt="tutor iamge"
           fill

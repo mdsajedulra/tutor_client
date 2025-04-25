@@ -8,6 +8,7 @@ import Image from "next/image";
 
 interface TutorDetails {
   _id: string;
+  name: string;
   image?:string;
   bio: string;
   subjects: string[];
@@ -100,7 +101,9 @@ export default function HeroSection({ tutors }: Props) {
                     height={250}
                     className="w-full h-full object-cover rounded-full"
                   />
+
                 </div>
+                  <div className="text-center text-xl font-bold mb-2 text-green-500">{tutor?.name}</div>
 
                 <div className="space-y-2 text-center">
                   <h2 className="text-lg sm:text-xl font-semibold">{tutor.bio}</h2>
