@@ -131,6 +131,8 @@ export function BookingModal({ tutor }: { tutor: Tutor }) {
         ) : (
           <Button variant="outline">Request Tutor</Button>
         )}
+
+{/* <Button variant="outline">Request Tutor</Button> */}
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[425px]">

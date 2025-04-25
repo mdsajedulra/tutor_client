@@ -1,29 +1,17 @@
-"use client";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import TutorDetailsPage from "@/components/sheared/tutor/TutorDetailsCard";
-import { getTutorByTutorId } from "@/services/Tutor";
-
-import { Tutor } from "@/types";
+import { getSingleTutorDetails} from "@/services/Tutor";
 
 
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
 
-const TutorDetails = () => {
-  const { cardId } = useParams();
-  console.log(cardId);
-
-  const [tutor, setTutor] = useState<Tutor | null >(null);
- 
+const TutorDetails = async({params}:any) => {
   
+  
+  const data = await getSingleTutorDetails(params.cardId);
+  console.log('tutor data', data.data);
 
-  useEffect(() => {
-    const getTutor = async () => {
-      const result = await getTutorByTutorId(cardId as string);
-      setTutor(result?.data);
-      console.log(cardId);
-    };
-    getTutor();
-  }, [cardId]);
+  const tutor = data.data
  
 
   return <>
