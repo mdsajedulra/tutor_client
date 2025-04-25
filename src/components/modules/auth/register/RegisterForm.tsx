@@ -32,6 +32,7 @@ const formSchema = z.object({
   password: z.string().min(6, {
     message: "Password must be at least 6 characters.",
   }),
+  isComplete: z.boolean().optional(),
 });
 
 export default function RegisterForm() {
@@ -43,9 +44,9 @@ export default function RegisterForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "name",
-      email: "tanvir1@example.com",
-      password: "123456",
+      name: "",
+      email: "",
+      password: "",
     },
   });
 
@@ -53,7 +54,9 @@ export default function RegisterForm() {
     try {
       const updateData = {
         ...data,
-        role: "tutor"
+        role: "tutor",
+        isComplete: false,
+        image: ""
       }
       console.log(updateData);
       const res = await registerUser(updateData);
@@ -78,7 +81,7 @@ export default function RegisterForm() {
     <div className="flex items-center justify-center min-h-screen ">
       <div className="w-full max-w-md p-8 space-y-6  rounded-xl shadow-md">
       <h2 className="text-2xl font-bold text-center">Good to know</h2>
-        <p className="text-sm text-center">On Superprof you can teach over 1,000 subjects! Use the search engine to find the subject you teach and let the fun begin :)</p>
+        <p className="text-sm text-center">On TutorLink you can teach over 1,000 subjects! Use the search engine to find the subject you teach and let the fun begin :)</p>
 
 
         <Form {...form}>
@@ -138,7 +141,7 @@ export default function RegisterForm() {
             </div>
             <FormMessage />
             <Button className="w-full" type="submit">
-              Login
+              Ragister as a tutor
             </Button>
           </form>
         </Form>

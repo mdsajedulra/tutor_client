@@ -9,13 +9,11 @@ const decodeToken = (token: string) => {
     const jsonPayload = decodeURIComponent(
       atob(base64)
         .split("")
-        .map(function (c) {
-          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-        })
+        .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
         .join("")
     );
     return JSON.parse(jsonPayload);
-  } catch (error) {
+  } catch {
     return null;
   }
 };
@@ -24,35 +22,33 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get("accessToken")?.value;
   const { pathname } = request.nextUrl;
 
-  if (token) {
+  // ✅ 1. Allow access to login page if not authenticated
+  if (!token && pathname === "/login") {
+    return NextResponse.next();
+  }
+
+  // ✅ 2. Redirect unauthenticated users from dashboard to login
+  if (!token && pathname.startsWith("/dashboard")) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
+
+  // ✅ 3. Redirect logged in users away from login page
+  if (token && pathname === "/login") {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
+  }
+
+  // ✅ 4. Handle role-based dashboard access
+  if (token && pathname.startsWith("/dashboard")) {
     const decodedToken = decodeToken(token);
     const role = decodedToken?.role;
 
-    console.log("Decoded Role:", role);  // Log role to check if it's correct
-
-    // For dashboard routes, protect based on role
-    if (pathname.startsWith("/dashboard")) {
-      if (role === "tutor" && !pathname.startsWith("/dashboard/tutor")) {
-        // Redirect tutor to tutor's specific dashboard route
-        return NextResponse.redirect(new URL("/dashboard/tutor", request.url));
-      }
-
-      if (role === "student" && !pathname.startsWith("/dashboard/student")) {
-        // Redirect student to student's specific dashboard route
-        return NextResponse.redirect(new URL("/dashboard/student", request.url));
-      }
+    if (role === "tutor" && !pathname.startsWith("/dashboard/tutor")) {
+      return NextResponse.redirect(new URL("/dashboard/tutor", request.url));
     }
-  } else {
-    // If no token exists, redirect to login page for private routes
-    if (pathname.startsWith("/dashboard") && !pathname.startsWith("/login")) {
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
-  }
 
-  // Avoid redirection to login if already on login page
-  if (pathname === "/login" && token) {
-    // If the user is already logged in and trying to access login, redirect to the dashboard
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+    if (role === "student" && !pathname.startsWith("/dashboard/student")) {
+      return NextResponse.redirect(new URL("/dashboard/student", request.url));
+    }
   }
 
   return NextResponse.next();

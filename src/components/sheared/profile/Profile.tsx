@@ -1,25 +1,26 @@
-
-"use client"
-import { Card,  } from "@/components/ui/card";
+"use client";
+import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
-
 
 import { useUser } from "@/context/UserContext";
 import Loader from "@/components/sheared/spinner/spinner";
+import { useEffect } from "react";
 
 export default function Profile() {
+  const { user, isLoading, setIsloading } = useUser();
 
-const {user , isLoading, setIsloading} = useUser()
+  useEffect(() => {
+    if (user) {
+      setIsloading(false);
+    }
+  }, [setIsloading, user]);
 
-if(!user){
-  setIsloading(true)
-}
-
- if(isLoading){
-  return <Loader/>
- }
-
+  if (isLoading) {
+    return <Loader />;
+  }
+  if (!user) {
+    return <Loader />;
+  }
   return (
     <div className="flex justify-center w-full py-10">
       <Card className="w-full max-w-md p-6 text-center space-y-4">

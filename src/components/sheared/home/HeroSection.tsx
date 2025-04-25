@@ -1,6 +1,5 @@
 "use client";
 
-import { useForm, Controller } from "react-hook-form";
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -22,10 +21,10 @@ interface TutorDetails {
   }[];
 }
 
-interface BookingFormData {
-  subject: string;
-  availability: string;
-}
+// interface BookingFormData {
+//   subject: string;
+//   availability: string;
+// }
 
 interface Props {
   tutors: TutorDetails[];
@@ -33,14 +32,9 @@ interface Props {
 
 
 export default function HeroSection({ tutors }: Props) {
-  const { control, handleSubmit } = useForm<BookingFormData>();
-  const [submittedData, setSubmittedData] = useState<BookingFormData | null>(null);
+
   const [searchTerm, setSearchTerm] = useState('');
 
-  const onSubmit = (data: BookingFormData) => {
-    setSubmittedData(data);
-    console.log('Booking submitted:', data);
-  };
 
   const renderStars = (rating: number) => {
     const fullStars = Math.floor(rating);
@@ -125,7 +119,7 @@ export default function HeroSection({ tutors }: Props) {
                   <div className="text-yellow-500">{renderStars(tutor.ratings)} ({tutor.ratings})</div>
                 </div>
 
-                <div className="mt-4 border-t pt-4">
+                {/* <div className="mt-4 border-t pt-4">
                   <h3 className="text-base font-semibold mb-2">Subject Schedule</h3>
                   <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 text-left">
                     <div>
@@ -169,15 +163,15 @@ export default function HeroSection({ tutors }: Props) {
                       />
                     </div>
                   </form>
-                </div>
+                </div> */}
 
-                {submittedData && (
+                {/* {submittedData && (
                   <div className="mt-4 p-4 bg-green-100 rounded-lg text-sm">
                     <p className="font-semibold">Booking Confirmed:</p>
                     <p>Subject: {submittedData.subject}</p>
                     <p>Time: {submittedData.availability}</p>
                   </div>
-                )}
+                )} */}
               </div>
             ))}
           </div>

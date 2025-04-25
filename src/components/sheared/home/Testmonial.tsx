@@ -17,23 +17,24 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    name: "রাহুল সরকার",
+    name: "Rahul Sarkar",
     comment:
-      "এই সার্ভিসের মাধ্যমে আমার ব্যবসায় অনেক উন্নতি হয়েছে! দারুণ সাপোর্ট।",
+      "My business has improved a lot through this service! Excellent support.",
     rating: 5,
   },
   {
     id: 2,
-    name: "প্রিয়া মিত্র",
-    comment: "অভিজ্ঞতা অসাধারণ ছিল। খুব দ্রুত এবং নির্ভরযোগ্য।",
+    name: "Priya Mitra",
+    comment: "The experience was amazing. Very fast and reliable.",
     rating: 4,
   },
   {
     id: 3,
-    name: "অমিত সাহা",
-    comment: "সাশ্রয়ী মূল্যে ভালো মানের সার্ভিস। আবার নেব ইনশাআল্লাহ।",
+    name: "Amit Saha",
+    comment: "Great quality service at an affordable price. Will definitely come back, InshaAllah.",
   },
 ];
+
 
 const Testimonial = () => {
   return (

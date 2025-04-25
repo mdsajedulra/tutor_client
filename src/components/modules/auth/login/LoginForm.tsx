@@ -8,7 +8,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
 
-
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -22,6 +21,9 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { loginUser } from "@/services/AuthService";
 import Loader from "@/components/sheared/spinner/spinner";
+import { jwtDecode } from "jwt-decode";
+import { useUser } from "@/context/UserContext";
+import { IUser } from "@/types";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -34,7 +36,7 @@ const formSchema = z.object({
 
 export default function LoginForm() {
   const [isMounted, setIsMounted] = useState(false);
-
+  const {  setUser } = useUser();
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirectPath");
@@ -52,17 +54,25 @@ export default function LoginForm() {
   }, []);
 
   if (!isMounted) {
-    return <div><Loader/></div>;
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
   }
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     console.log(data);
     try {
       const res = await loginUser(data);
-  
+
       if (res?.success) {
+        const decoded: IUser = jwtDecode(res.token); // 👈 decode manually in client
+        setUser(decoded); // 👈 update context manually
         toast.success(res.message);
-        router.push(redirect ? redirect : "/dashboard");
+        if (res?.data?.isComplete === false && res?.data?.role === "tutor") {
+          router.push(redirect ? redirect : "/completeprofile");
+        } else router.push(redirect ? redirect : "/dashboard");
       } else {
         toast.error(res?.message || "An error occurred during login.");
       }

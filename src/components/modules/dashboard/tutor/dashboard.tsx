@@ -6,7 +6,7 @@ const Dashboard = () => {
     <>
       <div className="w-full">
         <div>
-          <h1 className="text-2xl mb-4 font-bold">Booking Request</h1>
+         
           <Profile/>
         </div>
       </div>

@@ -57,7 +57,7 @@ if(user?.role ==="student"){
    route = [
     {
       title: "Profile Info",
-      url: "/dashboard/profile",
+      url: "/dashboard/student/profile",
       icon: Home,
     },
     {

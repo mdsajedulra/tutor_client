@@ -15,13 +15,27 @@ import { useUser } from "@/context/UserContext";
 import { logout } from "@/services/AuthService";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export function Avater() {
-  const { user, setIsloading } = useUser();
+  const { user, setUser } = useUser();
+  const router = useRouter();
 
   const handleLogout = () => {
     logout();
-    setIsloading(true);
+    setUser(null);
+
+    const currentPath = window.location.pathname;
+
+    // Redirect to login page only if on private route
+    if (currentPath.startsWith("/dashboard")) {
+      router.push("/login");
+    } else {
+      // If you're on a public route, don't redirect
+      console.log(
+        "Logout successful, but staying on the current public route."
+      );
+    }
   };
 
   return user ? (
@@ -51,12 +65,9 @@ export function Avater() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
 
-          <div onClick={() => handleLogout()}>
-        <DropdownMenuItem>
-        Log out
-
-        </DropdownMenuItem>
-          </div>
+        <div onClick={() => handleLogout()}>
+          <DropdownMenuItem>Log out</DropdownMenuItem>
+        </div>
       </DropdownMenuContent>
     </DropdownMenu>
   ) : (
