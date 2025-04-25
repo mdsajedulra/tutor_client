@@ -16,7 +16,7 @@ export interface AvailabilitySlot {
     bio: string;
     subjects: string[];
     hourlyRate: number;
-    rating: number;
+    ratings: number;
     location: string;
     availability: AvailabilitySlot[];
     user: IUser

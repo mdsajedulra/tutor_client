@@ -7,17 +7,22 @@ import {
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import { Tutor } from "@/types";
+import { Tutor } from "./tutor";
 
-export function TutorCard({ tutor }: { tutor: Tutor }) {
+
+interface Props {
+  tutor: Tutor;
+}
+
+export function TutorCard({ tutor }: Props) {
   const {
-    user,
+    
     _id,
-
+    name,
     bio,
     subjects,
     hourlyRate,
-    rating,
+    ratings,
     location,
   } = tutor;
 
@@ -38,7 +43,7 @@ export function TutorCard({ tutor }: { tutor: Tutor }) {
         {/* Gradient overlay with name */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end p-4">
           <CardTitle className="text-xl font-semibold text-white">
-            {user.name}
+            {name}
           </CardTitle>
         </div>
       </div>
@@ -64,9 +69,9 @@ export function TutorCard({ tutor }: { tutor: Tutor }) {
           <div className="flex items-center justify-between pt-2">
             <div className="space-y-1">
               <p className="text-sm font-medium">
-                ⭐ {rating}{" "}
+                ⭐ {ratings}{" "}
                 <span className="text-gray-500">
-                  ({Math.round(rating * 10)} reviews)
+                  ({Math.round(ratings * 10)} reviews)
                 </span>
               </p>
               <p className="text-sm">📍 {location}</p>

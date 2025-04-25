@@ -1,12 +1,16 @@
 import { BookingModal } from "@/components/modules/booking/bookingModal";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tutor } from "@/types";
+// import { Tutor } from "@/types";
 import Image from "next/image";
+
+
+
 
 export default function TutorDetailsPage({ tutor }: { tutor: Tutor | null }) {
   if (!tutor) return <div className="text-center py-10 text-muted-foreground">Loading...</div>;
 
-  const { name, bio, rating, hourlyRate, user, location, subjects } = tutor;
+  const { name, bio, ratings, hourlyRate, user, location, subjects } = tutor;
 
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-10 flex flex-col xl:flex-row-reverse gap-10">
@@ -28,7 +32,7 @@ export default function TutorDetailsPage({ tutor }: { tutor: Tutor | null }) {
           </div>
           <div className="flex justify-between">
             <span className="font-medium">⭐ Rating:</span>
-            <span>{rating}/5 (120 Reviews)</span>
+            <span>{ratings}/5 (120 Reviews)</span>
           </div>
           <div className="flex justify-between">
             <span className="font-medium">📍 Location:</span>
