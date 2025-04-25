@@ -1,10 +1,13 @@
+"use client";
 import ThankYou from "@/components/modules/payment/ThankyouPage";
+import { Suspense } from "react";
 
 const Page = () => {
-
   return (
     <>
-      <ThankYou />
+      <Suspense fallback={"loading ...."}>
+        <ThankYou />
+      </Suspense>
     </>
   );
 };

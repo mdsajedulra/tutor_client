@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 
 import { useEffect, useState } from "react";
-import { IUser } from "@/types";
+
 import Select from "react-select";
 import { getTutorById, updateTutorProfile } from "@/services/Tutor";
 import { toast } from "sonner";
@@ -58,7 +58,7 @@ export default function ManageAvailability() {
   const [tutor, setTutor] = useState<any>(null);
 
   // 1st: Fetch user
-const {user} =useUser
+const {user} =useUser()
 
   // 2nd: Fetch tutor info
   useEffect(() => {

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+ 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
@@ -44,7 +44,8 @@ export function BookingModal({ tutor }: { tutor: Tutor }) {
   const [open, setOpen] = React.useState(false);
   const [avail, setAvail] = useState<boolean | null>(null);
   const [selectedSlot, setSelectedSlot] = useState<{ startTime: string; endTime: string } | null>(null);
-const {user} = useUser()
+  const { user } = useUser();
+
   const FormSchema = z.object({
     dob: z.date({
       required_error: "A date is required.",
@@ -58,7 +59,6 @@ const {user} = useUser()
 
   function isTutorAvailableOnDate(dayOfWeek: string, availability: any[]) {
     const match = availability.find((slot) => slot.day === dayOfWeek);
-
     if (match) {
       return {
         available: true,
@@ -91,26 +91,19 @@ const {user} = useUser()
       date: dob.toISOString().split("T")[0],
       day: dayOfWeek,
       timeSlot: result.timeSlot,
-    
     };
 
-    console.log("Booking Data:", bookingData);
     try {
-     const res =  await createBooking(bookingData)
-     console.log(res);
-     if(res.success) {
-      toast.success(res.message)
-      setOpen(false)
+      const res = await createBooking(bookingData);
+      if (res.success) {
+        toast.success(res.message);
+        setOpen(false);
+      } else {
+        toast.error(res.message);
+      }
+    } catch (error: any) {
+      toast.error(error.message);
     }
-    else(
-      toast.error(res.message)
-    )
-    
-   } catch (error: any) {
-    toast.error(error.message)
-    
-   }
-
   };
 
   const enabledDates = tutor?.availability?.map((slot) => slot.day);
@@ -133,8 +126,7 @@ const {user} = useUser()
         </DialogHeader>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
               control={form.control}
               name="subject"
@@ -148,10 +140,9 @@ const {user} = useUser()
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {
-                        tutor?.subjects?.map((sub:string, index: number)=> <SelectItem key={index} value={sub}>{sub}</SelectItem>)
-                      }
-                     
+                      {tutor?.subjects?.map((sub: string, index: number) => (
+                        <SelectItem key={index} value={sub}>{sub}</SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -171,7 +162,7 @@ const {user} = useUser()
                         <Button
                           variant="outline"
                           className={cn(
-                            "w-[240px] pl-3 text-left font-normal",
+                            "w-full pl-3 text-left font-normal",
                             !field.value && "text-muted-foreground"
                           )}
                         >
@@ -197,7 +188,9 @@ const {user} = useUser()
                           }
                         }}
                         disabled={(date) =>
-                          date > new Date() || date < new Date("1900-01-01") || !isDateEnabled(date)
+                          date > new Date() ||
+                          date < new Date("1900-01-01") ||
+                          !isDateEnabled(date)
                         }
                         initialFocus
                       />
@@ -213,6 +206,12 @@ const {user} = useUser()
                 </FormItem>
               )}
             />
+
+            {form.watch("dob") && avail && (
+              <div className="text-sm text-muted-foreground font-semibold">
+                {/* Total Amount: ${tutor?.hourlyRate || 0} */}
+              </div>
+            )}
 
             <DialogFooter>
               <Button type="submit">Confirm Booking</Button>

@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 
 import { useEffect, useState } from "react";
-import { IUser } from "@/types";
+
 import Select from "react-select";
 
 import { toast } from "sonner";
@@ -117,7 +117,12 @@ export default function CompleteTutorProfile() {
       {/* Email */}
       <div>
         <Label>Email</Label>
-        <Input defaultValue={user?.email} disabled type="email" {...register("email")} />
+        <Input
+          defaultValue={user?.email}
+          disabled
+          type="email"
+          {...register("email")}
+        />
       </div>
 
       {/* Profile Picture Upload */}

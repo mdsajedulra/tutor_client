@@ -1,5 +1,3 @@
-
-
 import { Input } from "@/components/ui/input";
 import { Menu } from "lucide-react";
 import Link from "next/link";
