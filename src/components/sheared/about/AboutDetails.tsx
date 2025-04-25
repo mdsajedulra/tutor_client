@@ -6,7 +6,7 @@ const AboutDetails = () => {
     return (
         <div>
             <div>
-      This is the about page
+      
       <div className="bg-gray-50 text-gray-900">
         {/* Hero */}
         <section className="text-center py-16 px-4">
