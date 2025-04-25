@@ -28,27 +28,27 @@ if(user?.role === "tutor"){
   route = [
     {
       title: "Profile Info",
-      url: "/dashboard/profile",
+      url: "/dashboard/tutor/profile",
       icon: Home,
     },
     {
       title: "Manage Profile",
-      url: "/dashboard/updateprofile",
+      url: "/dashboard/tutor/updateprofile",
       icon: Inbox,
     },
     {
       title: "Manage Booking",
-      url: "/dashboard/booking",
+      url: "/dashboard/tutor/booking",
       icon: Inbox,
     },
     {
       title: "Manage Subject",
-      url: "/dashboard/subject",
+      url: "/dashboard/tutor/subject",
       icon: Inbox,
     },
     {
       title: "Manage Availability (Time slot)",
-      url: "/dashboard/manageavailability",
+      url: "/dashboard/tutor/manageavailability",
       icon: HomeIcon,
     },
   ];
@@ -63,6 +63,11 @@ if(user?.role ==="student"){
     {
       title: "My Booking",
       url: "/dashboard/student/booking",
+      icon: Inbox,
+    },
+    {
+      title: "Payment History",
+      url: "/dashboard/student/paymenthistory",
       icon: Inbox,
     },
     {

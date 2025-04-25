@@ -51,9 +51,12 @@ export function Avater() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
 
+          <div onClick={() => handleLogout()}>
         <DropdownMenuItem>
-          <div onClick={() => handleLogout()}>Log out</div>
+        Log out
+
         </DropdownMenuItem>
+          </div>
       </DropdownMenuContent>
     </DropdownMenu>
   ) : (

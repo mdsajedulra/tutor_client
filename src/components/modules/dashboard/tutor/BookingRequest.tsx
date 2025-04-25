@@ -123,6 +123,29 @@ const BookingRequest = () => {
                     </Button>
                   </div>
                 )}
+                {booking.status === "Pending" && (
+                  <div className="flex gap-2 justify-center">
+                    <Button
+                      onClick={() =>
+                        handleBookingStatus(booking._id, {
+                          status: "accepted",
+                        })
+                      }
+                    >
+                      Accept
+                    </Button>
+                    <Button
+                      onClick={() =>
+                        handleBookingStatus(booking._id, {
+                          status: "rejected",
+                        })
+                      }
+                      variant="destructive"
+                    >
+                      Reject
+                    </Button>
+                  </div>
+                )}
                 {booking.status === "accepted" && (
                   <div className="flex gap-2 justify-center">
                     <Button>Accepted</Button>

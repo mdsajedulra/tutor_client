@@ -62,6 +62,7 @@ export const getTutor = async (
 
   try {
     const res = await fetch(`http://localhost:5000/api/tutor`);
+    console.log(process.env.BACKEND_URL);
     const data = await res.json();
     return data;
   } catch (error) {
