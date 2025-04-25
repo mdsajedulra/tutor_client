@@ -14,14 +14,12 @@ export default function Navbar() {
       </div>
 
       {/* Search Bar */}
-      <div className="hidden md:flex w-1/3">
-        <Input placeholder="Search tutors by subject, grade, or name..." />
-      </div>
+     
 
       {/* Buttons */}
 
       <div>
-        <ModeToggle />
+        {/* <ModeToggle /> */}
       </div>
       <Avater />
       {/* Mobile Menu Icon */}

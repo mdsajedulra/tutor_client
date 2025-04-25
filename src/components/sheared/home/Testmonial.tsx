@@ -8,10 +8,10 @@ import {
 import Image from "next/image";
 
 interface Testimonial {
-  id: number; // ইউনিক আইডি (Optional)
-  name: string; // ব্যবহারকারীর নাম
-  comment: string; // মন্তব্য/রিভিউ
-  rating?: number; // রেটিং (Optional)
+  id: number;
+  name: string;
+  comment: string;
+  rating?: number;
 }
 
 const testimonials: Testimonial[] = [
@@ -35,25 +35,26 @@ const testimonials: Testimonial[] = [
   },
 ];
 
-const Testmonial = () => {
+const Testimonial = () => {
   return (
-    <>
-      <Carousel className="  my-20">
+    <div className="my-20 px-4 sm:px-6 lg:px-8">
+      <Carousel className="w-full max-w-3xl mx-auto">
         <CarouselContent>
-          {testimonials.map((testimonial, index) => (
-            <CarouselItem key={index}>
-              <div className="p-1 text-center">
-                <h3 className="text-2xl mb-5">&quot;{testimonial.comment}&quot;</h3>
-                <div className="flex items-center justify-center gap-5">
-                 <div>
-                 <Image
-                    height="50"
-                    width="50"
+          {testimonials.map((testimonial) => (
+            <CarouselItem key={testimonial.id} className="flex justify-center">
+              <div className="p-6 bg-white rounded-xl shadow-md w-full max-w-md text-center">
+                <p className="text-lg italic mb-4">“{testimonial.comment}”</p>
+                <div className="flex items-center justify-center gap-3 mt-4">
+                  <Image
+                    height={50}
+                    width={50}
                     alt="user image"
+                    className="rounded-full"
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqSeFVyo8KOrksQuHBQjLCyQ9dwuefXulcoWHCvu3-bRDWpOjADk7hHUJ9VZJgoUkMZF4&usqp=CAU"
                   />
-                 </div>
-                  {testimonial.name}
+                  <span className="font-semibold text-gray-700">
+                    {testimonial.name}
+                  </span>
                 </div>
               </div>
             </CarouselItem>
@@ -62,8 +63,8 @@ const Testmonial = () => {
         <CarouselPrevious />
         <CarouselNext />
       </Carousel>
-    </>
+    </div>
   );
 };
 
-export default Testmonial;
+export default Testimonial;

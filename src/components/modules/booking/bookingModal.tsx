@@ -1,4 +1,3 @@
- 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
@@ -27,7 +26,13 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { Tutor } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -43,7 +48,10 @@ import { createBooking } from "@/services/booking";
 export function BookingModal({ tutor }: { tutor: Tutor }) {
   const [open, setOpen] = React.useState(false);
   const [avail, setAvail] = useState<boolean | null>(null);
-  const [selectedSlot, setSelectedSlot] = useState<{ startTime: string; endTime: string } | null>(null);
+  const [selectedSlot, setSelectedSlot] = useState<{
+    startTime: string;
+    endTime: string;
+  } | null>(null);
   const { user } = useUser();
 
   const FormSchema = z.object({
@@ -116,13 +124,21 @@ export function BookingModal({ tutor }: { tutor: Tutor }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Book Now</Button>
+        {user?.role !== "student" ? (
+          <Button disabled variant="outline">
+            Only Resisterd student can request tutor
+          </Button>
+        ) : (
+          <Button variant="outline">Request Tutor</Button>
+        )}
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Book a Session</DialogTitle>
-          <DialogDescription>Select a subject and a date to book your session.</DialogDescription>
+          <DialogDescription>
+            Select a subject and a date to book your session.
+          </DialogDescription>
         </DialogHeader>
 
         <Form {...form}>
@@ -133,7 +149,10 @@ export function BookingModal({ tutor }: { tutor: Tutor }) {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Subject</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Select subject" />
@@ -141,7 +160,9 @@ export function BookingModal({ tutor }: { tutor: Tutor }) {
                     </FormControl>
                     <SelectContent>
                       {tutor?.subjects?.map((sub: string, index: number) => (
-                        <SelectItem key={index} value={sub}>{sub}</SelectItem>
+                        <SelectItem key={index} value={sub}>
+                          {sub}
+                        </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
@@ -166,7 +187,11 @@ export function BookingModal({ tutor }: { tutor: Tutor }) {
                             !field.value && "text-muted-foreground"
                           )}
                         >
-                          {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
+                          {field.value ? (
+                            format(field.value, "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
                           <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                         </Button>
                       </FormControl>
@@ -178,10 +203,17 @@ export function BookingModal({ tutor }: { tutor: Tutor }) {
                         onSelect={(date) => {
                           field.onChange(date);
                           if (date) {
-                            const day = date.toLocaleDateString("en-US", { weekday: "long" });
-                            const match = tutor.availability.find((slot) => slot.day === day);
+                            const day = date.toLocaleDateString("en-US", {
+                              weekday: "long",
+                            });
+                            const match = tutor.availability.find(
+                              (slot) => slot.day === day
+                            );
                             if (match) {
-                              setSelectedSlot({ startTime: match.startTime, endTime: match.endTime });
+                              setSelectedSlot({
+                                startTime: match.startTime,
+                                endTime: match.endTime,
+                              });
                             } else {
                               setSelectedSlot(null);
                             }
@@ -198,7 +230,8 @@ export function BookingModal({ tutor }: { tutor: Tutor }) {
                   </Popover>
                   {selectedSlot && (
                     <p className="text-sm text-muted-foreground">
-                      Available Time: {selectedSlot.startTime} - {selectedSlot.endTime}
+                      Available Time: {selectedSlot.startTime} -{" "}
+                      {selectedSlot.endTime}
                     </p>
                   )}
                   <FormDescription>Your booking date.</FormDescription>
@@ -214,7 +247,7 @@ export function BookingModal({ tutor }: { tutor: Tutor }) {
             )}
 
             <DialogFooter>
-              <Button type="submit">Confirm Booking</Button>
+              <Button type="submit">Confirm Tutor Request</Button>
             </DialogFooter>
           </form>
         </Form>
