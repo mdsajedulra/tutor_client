@@ -17,8 +17,10 @@ const TutorDetails = async({params}:any) => {
 
   return (
     <div>
-      {/* <TutorDetailsPage></TutorDetailsPage> */}
-      this is details page
+      <div className="w-full  my-20 text-center text-5xl">
+        <p className="font-semibold text-blue-600 my-2">Hey you, The Brightest Student, </p>
+        <p>I am waiting for you...🥸🤓</p>
+      </div>
       <TutorDetailsBookingUI {...tutorData}></TutorDetailsBookingUI>
     </div>
   )

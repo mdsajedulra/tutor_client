@@ -108,85 +108,168 @@ export default function TutorList({ tutors = [] }: Props) {
   }, [tutors, subject, location, sortBy, minRate, maxRate, availableDay]);
 
   return (
-    <div className="min-h-screen">
-      {/* Filter & Sort Controls */}
-      <div className="flex justify-center gap-4 mb-4">
-        <select
-          onChange={(e) => setSubject(e.target.value)}
-          className="border p-2"
-        >
-          <option value="">All Subjects</option>
-          <option value="Chemistry">Chemistry</option>
-          <option value="Physics">Physics</option>
-          <option value="English Grammar">English Grammar</option>
-          <option value="Computer Science">Computer Science</option>
-          <option value="Math">Math</option>
-          <option value="Accounting">Accounting</option>
-          <option value="Economics">Economics</option>
-          <option value="Chemistry">Chemistry</option>
-          <option value="Bangla Literature">Bangla Literature</option>
-          <option value="Biology">Biology</option>
-          <option value="English For Today">English For Today</option>
-          <option value="Bangla Literature">Bangla Literature</option>
-        </select>
+    // <div className="min-h-screen">
+    //   {/* Filter & Sort Controls */}
+    //   <div className="flex justify-center gap-4 mb-4">
+    //     <select
+    //       onChange={(e) => setSubject(e.target.value)}
+    //       className="border p-2"
+    //     >
+    //       <option value="">All Subjects</option>
+    //       <option value="Chemistry">Chemistry</option>
+    //       <option value="Physics">Physics</option>
+    //       <option value="English Grammar">English Grammar</option>
+    //       <option value="Computer Science">Computer Science</option>
+    //       <option value="Math">Math</option>
+    //       <option value="Accounting">Accounting</option>
+    //       <option value="Economics">Economics</option>
+    //       <option value="Chemistry">Chemistry</option>
+    //       <option value="Bangla Literature">Bangla Literature</option>
+    //       <option value="Biology">Biology</option>
+    //       <option value="English For Today">English For Today</option>
+    //       <option value="Bangla Literature">Bangla Literature</option>
+    //     </select>
 
-        <input
-          type="text"
-          placeholder="Location"
-          onChange={(e) => setLocation(e.target.value)}
-          className="border p-2"
-        />
+    //     <input
+    //       type="text"
+    //       placeholder="Location"
+    //       onChange={(e) => setLocation(e.target.value)}
+    //       className="border p-2"
+    //     />
 
-        {/* Hourly Rate */}
-        <input
-          type="number"
-          placeholder="Min Rate"
-          onChange={(e) => setMinRate(e.target.value)}
-          className="border p-2 w-24"
-        />
-        <input
-          type="number"
-          placeholder="Max Rate"
-          onChange={(e) => setMaxRate(e.target.value)}
-          className="border p-2 w-24"
-        />
+    //     {/* Hourly Rate */}
+    //     <input
+    //       type="number"
+    //       placeholder="Min Rate"
+    //       onChange={(e) => setMinRate(e.target.value)}
+    //       className="border p-2 w-24"
+    //     />
+    //     <input
+    //       type="number"
+    //       placeholder="Max Rate"
+    //       onChange={(e) => setMaxRate(e.target.value)}
+    //       className="border p-2 w-24"
+    //     />
 
-        {/* Availability */}
-        <select
-          onChange={(e) => setAvailableDay(e.target.value)}
-          className="border p-2"
-        >
-          <option value="">All Days</option>
-          <option value="Monday">Monday</option>
-          <option value="Tuesday">Tuesday</option>
-          <option value="Wednesday">Wednesday</option>
-          <option value="Thursday">Thursday</option>
-          <option value="Friday">Friday</option>
-          <option value="Saturday">Saturday</option>
-          <option value="Sunday">Sunday</option>
-        </select>
+    //     {/* Availability */}
+    //     <select
+    //       onChange={(e) => setAvailableDay(e.target.value)}
+    //       className="border p-2"
+    //     >
+    //       <option value="">All Days</option>
+    //       <option value="Monday">Monday</option>
+    //       <option value="Tuesday">Tuesday</option>
+    //       <option value="Wednesday">Wednesday</option>
+    //       <option value="Thursday">Thursday</option>
+    //       <option value="Friday">Friday</option>
+    //       <option value="Saturday">Saturday</option>
+    //       <option value="Sunday">Sunday</option>
+    //     </select>
 
-        <select
-          onChange={(e) => setSortBy(e.target.value)}
-          className="border p-2"
-        >
-          <option value="">Sort By</option>
-          <option value="rating">Rating</option>
-          <option value="priceLow">Price: Low to High</option>
-          <option value="priceHigh">Price: High to Low</option>
-        </select>
-      </div>
+    //     <select
+    //       onChange={(e) => setSortBy(e.target.value)}
+    //       className="border p-2"
+    //     >
+    //       <option value="">Sort By</option>
+    //       <option value="rating">Rating</option>
+    //       <option value="priceLow">Price: Low to High</option>
+    //       <option value="priceHigh">Price: High to Low</option>
+    //     </select>
+    //   </div>
 
-      {/* Tutor Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {Array.isArray(displayedTutors) && displayedTutors.length > 0 ? (
-          displayedTutors.map((tutor) => (
-            <TutorCard key={tutor._id} tutor={tutor} />
-          ))
-        ) : (
-          <p className="text-center col-span-full">No tutors found.</p>
-        )}
-      </div>
+    //   {/* Tutor Cards */}
+    //   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    //     {Array.isArray(displayedTutors) && displayedTutors.length > 0 ? (
+    //       displayedTutors.map((tutor) => (
+    //         <TutorCard key={tutor._id} tutor={tutor} />
+    //       ))
+    //     ) : (
+    //       <p className="text-center col-span-full">No tutors found.</p>
+    //     )}
+    //   </div>
+    // </div>
+
+
+    <div className="min-h-screen px-4">
+  {/* Filter & Sort Controls */}
+  <div className="flex flex-col sm:flex-wrap md:flex-row justify-center items-center gap-4 mb-6">
+    <select
+      onChange={(e) => setSubject(e.target.value)}
+      className="border p-2 w-full sm:w-auto"
+    >
+      <option value="">All Subjects</option>
+      <option value="Chemistry">Chemistry</option>
+      <option value="Physics">Physics</option>
+      <option value="English Grammar">English Grammar</option>
+      <option value="Computer Science">Computer Science</option>
+      <option value="Math">Math</option>
+      <option value="Accounting">Accounting</option>
+      <option value="Economics">Economics</option>
+      <option value="Bangla Literature">Bangla Literature</option>
+      <option value="Biology">Biology</option>
+      <option value="English For Today">English For Today</option>
+    </select>
+
+    <input
+      type="text"
+      placeholder="Location"
+      onChange={(e) => setLocation(e.target.value)}
+      className="border p-2 w-full sm:w-auto"
+    />
+
+    {/* Hourly Rate */}
+    <div className="flex gap-2 w-full sm:w-auto">
+      <input
+        type="number"
+        placeholder="Min Rate"
+        onChange={(e) => setMinRate(e.target.value)}
+        className="border p-2 w-full sm:w-24"
+      />
+      <input
+        type="number"
+        placeholder="Max Rate"
+        onChange={(e) => setMaxRate(e.target.value)}
+        className="border p-2 w-full sm:w-24"
+      />
     </div>
+
+    {/* Availability */}
+    <select
+      onChange={(e) => setAvailableDay(e.target.value)}
+      className="border p-2 w-full sm:w-auto"
+    >
+      <option value="">All Days</option>
+      <option value="Monday">Monday</option>
+      <option value="Tuesday">Tuesday</option>
+      <option value="Wednesday">Wednesday</option>
+      <option value="Thursday">Thursday</option>
+      <option value="Friday">Friday</option>
+      <option value="Saturday">Saturday</option>
+      <option value="Sunday">Sunday</option>
+    </select>
+
+    <select
+      onChange={(e) => setSortBy(e.target.value)}
+      className="border p-2 w-full sm:w-auto"
+    >
+      <option value="">Sort By</option>
+      <option value="rating">Rating</option>
+      <option value="priceLow">Price: Low to High</option>
+      <option value="priceHigh">Price: High to Low</option>
+    </select>
+  </div>
+
+  {/* Tutor Cards */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {Array.isArray(displayedTutors) && displayedTutors.length > 0 ? (
+      displayedTutors.map((tutor) => (
+        <TutorCard key={tutor._id} tutor={tutor} />
+      ))
+    ) : (
+      <p className="text-center col-span-full">No tutors found.</p>
+    )}
+  </div>
+</div>
+
   );
 }
