@@ -1,13 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
-
 import TutorList from "@/components/sheared/tutor/tutor";
-import { getAllTutor} from "@/services/Tutor";
-
-
-
-
-
+import { getAllTutor } from "@/services/Tutor";
+import { Metadata } from "next";
 
 export interface User {
   _id: string;
@@ -32,37 +25,33 @@ export interface TTutor {
   totalEarnings: number;
 }
 
+export const metadata: Metadata = {
+  title: "All Tutors",
+  description:
+    "Browse and discover top-rated tutors for all subjects and grades.",
+};
 
-
-const Page =  async() => {
-
+const Page = async () => {
   const tutorsdata = await getAllTutor();
 
-  const tutors = tutorsdata.data
-  console.log('this is tutors data', tutors);
-
+  const tutors = tutorsdata.data;
+  console.log("this is tutors data", tutors);
 
   return (
     <div className="w-[80%] mx-auto py-10">
       <div className="w-full  my-20 text-center text-5xl">
         Find the perfect tutor
       </div>
-      
+
       <div className="">
-        
-
         <div>
-        
-
-          <TutorList  tutors={tutors}></TutorList>
+          <TutorList tutors={tutors}></TutorList>
 
           {/* {
             tutors.data?.map((tutor:TTutor)=>(
               <CardTutor key={tutor._id} {...tutor}></CardTutor>
             ))
           } */}
-
-          
         </div>
       </div>
     </div>

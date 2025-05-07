@@ -10,7 +10,7 @@ import Image from "next/image";
 export default function TutorDetailsPage({ tutor }: { tutor: Tutor | null }) {
   if (!tutor) return <div className="text-center py-10 text-muted-foreground">Loading...</div>;
 
-  const { name, bio, ratings, hourlyRate, user, location, subjects ,image } = tutor;
+  const { name, bio, ratings, hourlyRate, location, subjects ,image } = tutor;
 
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-10 flex flex-col xl:flex-row-reverse gap-10">

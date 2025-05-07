@@ -26,6 +26,7 @@ const formSchema = z.object({
   name: z.string().min(4, { message: "Please enter name" }),
   email: z.string().email({ message: "Please enter a valid email address." }),
   password: z.string().min(6, { message: "Password must be at least 6 characters." }),
+  image: z.string()
 });
 
 export default function StudentRegistrationForm() {
@@ -39,6 +40,7 @@ export default function StudentRegistrationForm() {
       name: "",
       email: "",
       password: "",
+      image: ""
     },
   });
 

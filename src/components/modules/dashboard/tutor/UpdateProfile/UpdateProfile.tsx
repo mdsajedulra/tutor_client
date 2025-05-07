@@ -86,6 +86,7 @@ export default function UpdateProfile() {
       location: data?.location,
       profilePicture: data?.profilePicture,
       email: user?.email,
+      name: user?.name
     };
 
     const userId = user?._id as string;

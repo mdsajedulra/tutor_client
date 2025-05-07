@@ -2,8 +2,12 @@
 
 import TutorDetailsPage from "@/components/sheared/tutor/TutorDetailsCard";
 import { getSingleTutorDetails} from "@/services/Tutor";
+import { Metadata } from "next";
 
-
+export const metadata: Metadata = {
+  title: "Single tutor page",
+  description: "Browse and discover top-rated tutors for all subjects and grades.",
+};
 
 const TutorDetails = async({params}:any) => {
   
