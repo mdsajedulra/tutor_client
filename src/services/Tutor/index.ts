@@ -99,10 +99,8 @@ export const getTutorByTutorId = async (id: string) => {
 
 export const getAllTutor = async()=>{
   const res = await fetch ('https://tutorial-link-backend.vercel.app/api/tutor', {
-      next: {
-        revalidate: 5,
-      },
-    });
+    cache:"no-store",
+})
   return res.json();
 }
 
@@ -111,9 +109,9 @@ export const getAllTutor = async()=>{
 export const getSingleTutorDetails = async(tutorId:any)=>{
   console.log('this is tutor id', tutorId);
   const res = await fetch (`https://tutorial-link-backend.vercel.app/api/tutor/${tutorId}`,{
-      next:{
-          revalidate: 5,
-      },
+    next: {
+      revalidate: 5,
+    },
   });
   return res.json();
 }

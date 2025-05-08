@@ -27,7 +27,7 @@ interface TutorDetails {
 //   availability: string;
 // }
 
-interface Props {
+export interface Props {
   tutors: TutorDetails[];
 }
 

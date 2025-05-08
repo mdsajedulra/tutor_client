@@ -37,13 +37,14 @@ interface Props {
 export default function TutorList({ tutors = [] }: Props) {
 
     
-  console.log("this is all", tutors);
+  // console.log("this is all", tutors);
   const [subject, setSubject] = useState("");
   const [location, setLocation] = useState("");
   const [sortBy, setSortBy] = useState("");
   const [minRate, setMinRate] = useState("");
   const [maxRate, setMaxRate] = useState("");
   const [availableDay, setAvailableDay] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const [displayedTutors, setDisplayedTutors] = useState<Tutor[]>(tutors);
 
@@ -70,10 +71,10 @@ export default function TutorList({ tutors = [] }: Props) {
       );
     }
 
-    if (filtered.length === 0) {
-      setDisplayedTutors(tutors); // fallback to all tutors
-      return;
-    }
+    // if (filtered.length === 0) {
+    //   setDisplayedTutors(tutors); // fallback to all tutors
+    //   return;
+    // }
 
     // 💰 Filter by hourly rate range
     if (minRate) {
@@ -109,7 +110,29 @@ export default function TutorList({ tutors = [] }: Props) {
     }
 
     setDisplayedTutors(filtered);
+    setCurrentPage(1);
   }, [tutors, subject, location, sortBy, minRate, maxRate, availableDay]);
+
+
+
+
+
+  const itemsPerPage = 8; // Or however many items per page
+
+  
+
+  // Calculate total pages
+  const totalPages = Math.ceil(displayedTutors?.length / itemsPerPage);
+
+  // Get current page items
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = displayedTutors?.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+
+  
 
   return (
     
@@ -186,13 +209,48 @@ export default function TutorList({ tutors = [] }: Props) {
   {/* Tutor Cards */}
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
     {Array.isArray(displayedTutors) && displayedTutors.length > 0 ? (
-      displayedTutors.map((tutor) => (
+      currentItems.map((tutor) => (
         <TutorCard key={tutor._id} tutor={tutor} />
       ))
     ) : (
       <p className="text-center col-span-full">No tutors found.</p>
     )}
   </div>
+
+
+  <div className="flex justify-center mt-6 space-x-2">
+            <button
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+              className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50"
+            >
+              Previous
+            </button>
+
+            {[...Array(totalPages)].map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentPage(idx + 1)}
+                className={`px-4 py-2 rounded ${
+                  currentPage === idx + 1
+                    ? "bg-blue-700 text-white"
+                    : "bg-gray-200"
+                }`}
+              >
+                {idx + 1}
+              </button>
+            ))}
+
+            <button
+              onClick={() =>
+                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+              }
+              disabled={currentPage === totalPages}
+              className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50"
+            >
+              Next
+            </button>
+          </div>
 </div>
 
   );
