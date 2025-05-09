@@ -11,7 +11,7 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section className="px-6 md:px-20 py-14 bg-gray-100">
+    <section id='howworks' className="px-6 md:px-20 py-14 bg-gray-100">
       <h2 className="text-3xl font-bold mb-12 text-center">How TutorLink Works</h2>
       <div className="grid md:grid-cols-4 gap-8 text-center">
         {steps.map((step, idx) => (

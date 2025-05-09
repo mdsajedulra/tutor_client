@@ -16,7 +16,7 @@ const stories = [
 
 export function SuccessStories() {
   return (
-    <section className="px-6 md:px-20 py-14 bg-gray-100">
+    <section id='studentReview' className="px-6 md:px-20 py-14 bg-gray-100">
       <h2 className="text-3xl font-bold mb-10 text-center">Success Stories from Students</h2>
       <div className="grid md:grid-cols-2 gap-6">
         {stories.map((story, idx) => (

@@ -121,6 +121,12 @@
   }
 }
 
+
+html {
+  scroll-behavior: smooth;
+}
+
+
 /* body{
   width: 1280px;
   margin: 0 auto;

@@ -7,19 +7,19 @@ const tutorTestimonials = [
     name: 'Fatima Khan',
     subject: 'Biology',
     feedback: 'TutorLink helped me reach more students in less time. The platform is easy to use and student matching is great!',
-    image: '/path/to/fatima-image.jpg' // Replace with actual image or use a placeholder
+    image: 'https://t4.ftcdn.net/jpg/09/37/59/67/360_F_937596700_JRPvP1Z4rz0RhfJQE3BU45ldBMnWkw4j.jpg' 
   },
   {
     name: 'Ali Raza',
     subject: 'Mathematics',
     feedback: 'The ability to set my own schedule and interact with students directly made tutoring on TutorLink a breeze!',
-    image: '/path/to/ali-image.jpg'
+    image: 'https://img.lovepik.com/png/20231125/man-avatar-image-for-profile-child-diverse-guy_693690_wh860.png'
   }
 ]
 
 export function TutorTestimonials() {
   return (
-    <section className="px-6 md:px-20 py-14 bg-gray-100">
+    <section id="tutorReview" className="px-6 md:px-20 py-14 bg-gray-100">
       <h2 className="text-3xl font-bold mb-3 text-center">
         Why You Should Become a Tutor on TutorLink
       </h2>
@@ -39,7 +39,7 @@ export function TutorTestimonials() {
           >
             <div className="flex items-center gap-4 mb-6">
             <Image
-                src={testimonial.image}
+                src={testimonial.image?testimonial.image:'https://img.lovepik.com/png/20231125/man-avatar-image-for-profile-child-diverse-guy_693690_wh860.png'}
                 alt={testimonial.name}
                 width={250}
                 height={250}

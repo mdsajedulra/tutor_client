@@ -11,8 +11,8 @@ const subjects = [
 
 export default function BrowseBySubject() {
   return (
-    <section className="px-6 md:px-20 py-14 bg-white">
-      <h2 className="text-3xl font-bold mb-8 text-center">Browse by Subject</h2>
+    <section id='demandedSubject' className="px-6 md:px-20 py-14 bg-white">
+      <h2 className="text-3xl font-bold mb-8 text-center">Most In-Demand Subjects on TutorLink</h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6 justify-items-center">
         {subjects.map((subject, idx) => (
           <motion.div

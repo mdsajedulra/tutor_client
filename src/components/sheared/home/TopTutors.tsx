@@ -11,7 +11,7 @@ export default function TopTutors({ tutors }: Props) {
     .slice(0, 3);
 
   return (
-    <section className="px-6 md:px-20 py-10 bg-gradient-to-br from-sky-100 to-white">
+    <section id="topTutors" className="px-6 md:px-20 py-10 bg-gradient-to-br from-sky-100 to-white">
       <h2 className="text-3xl font-bold mb-10 text-center">
         Top Featured Tutors
       </h2>
@@ -44,7 +44,7 @@ export default function TopTutors({ tutors }: Props) {
 
             <Button
               asChild
-              className="mt-6 px-4 py-1 bg-blue-600 text-white rounded-xl hover:bg-blue-700 text-sm"
+              className="mt-6 px-4 py-1 text-white rounded-xl text-sm"
             >
               <Link href={`/tutor/${tutor._id}`}>View Profile</Link>
             </Button>

@@ -27,7 +27,7 @@ const partners = [
 
 export function PartnerInstitutions() {
   return (
-    <section className="px-6 md:px-20 py-14 bg-white">
+    <section id='brand' className="px-6 md:px-20 py-14 bg-white">
       <h2 className="text-3xl font-bold text-center mb-4">
         Trusted by Educators Across the Country
       </h2>

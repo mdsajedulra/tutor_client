@@ -55,7 +55,7 @@ export default function HeroSection({ tutors }: Props) {
   const showResults = searchTerm.trim().length > 0 && filteredTutors.length > 0;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+    <div id="herosection" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       <section className="flex flex-col items-center text-center space-y-6">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-blue-700">
           Find Your Perfect Tutor Today!

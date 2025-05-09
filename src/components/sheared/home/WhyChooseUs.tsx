@@ -11,7 +11,7 @@ const features = [
 
 export function WhyChooseUs() {
   return (
-    <section className="px-6 md:px-20 py-14 bg-blue-50">
+    <section id='whychoose' className="px-6 md:px-20 py-14 bg-blue-50">
       <h2 className="text-3xl font-bold mb-10 text-center">Why Choose TutorLink?</h2>
       <div className="grid md:grid-cols-4 gap-6 text-center">
         {features.map((f, idx) => (

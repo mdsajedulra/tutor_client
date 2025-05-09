@@ -28,7 +28,7 @@ function AnimatedCounter({ count }:any) {
 
 export function TutorStatistics() {
   return (
-    <section className="px-6 md:px-20 py-14 bg-blue-50">
+    <section id='statistics' className="px-6 md:px-20 py-14 bg-blue-50">
       <h2 className="text-3xl font-bold mb-10 text-center">TutorLink in Numbers</h2>
       <div className="grid md:grid-cols-3 gap-6 text-center">
         {stats.map((stat, idx) => (

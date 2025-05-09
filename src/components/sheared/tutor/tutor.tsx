@@ -117,7 +117,7 @@ export default function TutorList({ tutors = [] }: Props) {
 
 
 
-  const itemsPerPage = 8; // Or however many items per page
+  const itemsPerPage = 9; // Or however many items per page
 
   
 
