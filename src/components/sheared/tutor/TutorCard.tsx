@@ -17,6 +17,7 @@ export function TutorCard({ tutor }: Props) {
   const { _id, name, bio, subjects, hourlyRate, ratings, location, image } =
     tutor;
 
+    //("id fasfsdfasfdsafsadfsafsadfasf" , tutor);
   return (
     <Card className="w-full max-w-sm overflow-hidden rounded-2xl shadow-lg transition-all hover:shadow-xl">
       {/* Image with zoom effect */}

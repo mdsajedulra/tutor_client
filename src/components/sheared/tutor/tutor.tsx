@@ -37,7 +37,7 @@ interface Props {
 export default function TutorList({ tutors = [] }: Props) {
 
     
-  console.log("this is all", tutors);
+  //("this is all", tutors);
   const [subject, setSubject] = useState("");
   const [location, setLocation] = useState("");
   const [sortBy, setSortBy] = useState("");

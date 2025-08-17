@@ -13,7 +13,7 @@ const TutorDetails = async({params}:any) => {
   
   
   const data = await getSingleTutorDetails(params.cardId);
-  console.log('tutor data', data.data);
+  //('tutor data', data.data);
 
   const tutor = data.data
  

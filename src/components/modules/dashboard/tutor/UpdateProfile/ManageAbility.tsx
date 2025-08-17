@@ -48,7 +48,7 @@ export default function ManageAvailability() {
       availability: [],
     },
   });
-
+ 
   const { fields, append, remove } = useFieldArray({
     control,
     name: "availability",

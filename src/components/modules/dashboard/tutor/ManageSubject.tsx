@@ -25,7 +25,7 @@ export default function ManageSubject() {
   const onSubmit = async (data: SubjectFormData) => {
     try {
       const res = await createSubject(data)
-      console.log(res);
+      //(res);
 
    
       if (res?.success) {
@@ -42,7 +42,7 @@ export default function ManageSubject() {
 
   return (
    <div>
-     <Card className="max-w-md mx-auto mt-10">
+     <Card className="mx-auto mt-10">
       <CardContent className="space-y-6 py-8">
         <h1 className="text-green-500 text-center">You can create subjects here and add them to your profile from the Manage Profile page.</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

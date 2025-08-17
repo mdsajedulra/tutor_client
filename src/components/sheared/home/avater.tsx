@@ -32,7 +32,7 @@ export function Avater() {
       router.push("/login");
     } else {
       // If you're on a public route, don't redirect
-      console.log(
+      //(
         "Logout successful, but staying on the current public route."
       );
     }

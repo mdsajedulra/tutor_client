@@ -1,13 +1,11 @@
 import Profile from "@/components/sheared/profile/Profile";
 
-
 const Dashboard = () => {
   return (
     <>
-      <div className="w-full">
+      <div className="container">
         <div>
-         
-          <Profile/>
+          <Profile />
         </div>
       </div>
     </>

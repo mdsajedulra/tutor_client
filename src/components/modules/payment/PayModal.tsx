@@ -29,7 +29,7 @@ export function PayModal({ book }: { book: IBooking }) {
       selectedHours: hour, 
       selectedMonths: month
     };
-    console.log(data);
+    //(data);
     // const toastId = "payment"
     toast.loading("Payment Processing...")
     const res = await makePayment(data)
@@ -38,7 +38,7 @@ export function PayModal({ book }: { book: IBooking }) {
           window.location.href = res.data;
         }, 1000);
       }
-    console.log(res);
+    //(res);
     
     
   };

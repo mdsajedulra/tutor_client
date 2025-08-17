@@ -1,15 +1,29 @@
 "use client";
-import { useState } from "react";
-import { Book, Menu, Search, User, X } from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Avater } from "./avater";
-import { Button } from "@/components/ui/button";
-import { MegaMenu } from "./Megamenu";
 
-export default function Navbar() {
-  const pathName = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
+import { useState } from "react";
+import { Book, User, Menu, X } from "lucide-react";
+import Link from "next/link";
+
+import { Button } from "@/components/ui/button";
+import { useUser } from "@/context/UserContext";
+import { logout } from "@/services/AuthService";
+
+export function Navbar() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const { user, setUser } = useUser();
+
+  //(user);
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+
+      setUser(null);
+    } catch (error) {
+      //("Logout failed:", error);
+    }
+  };
 
   const navItems = [
     { name: "Find Tutor", href: "/tutor" },
@@ -17,53 +31,37 @@ export default function Navbar() {
     { name: "FAQ", href: "/faq" },
     { name: "Blogs", href: "/blog" },
   ];
+  // const logOut = logout();
 
   return (
-    <div>
-      <header className="w-full border-b py-4">
-        <div className="container mx-auto px-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <Book className="h-8 w-8 text-tutor-primary" />
-            <span className="text-2xl font-display font-bold text-tutor-primary">
-              TutorLink
-            </span>
-          </Link>
+    <header className=" sticky top-0 z-50 w-full border-b py-4 bg-white">
+      <div className="container mx-auto px-4 flex items-center justify-between">
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-2">
+          <Book className="h-8 w-8 text-tutor-primary" />
+          <span className="text-2xl font-display font-bold text-tutor-primary">
+            TutorLink
+          </span>
+        </Link>
 
-          <nav className="hidden md:flex items-center gap-6">
-            {navItems.map((nav, index) => (
-              <Link
-                key={index}
-                href={nav.href}
-                className="font-medium hover:text-tutor-primary transition-colors"
-              >
-                {" "}
-                {nav?.name}{" "}
-              </Link>
-              
-            ))}
-            <MegaMenu/>
-            {/* <Link href="/" className="font-medium hover:text-tutor-primary transition-colors">
-            Home
-          </Link>
-          <Link href="/tutors" className="font-medium hover:text-tutor-primary transition-colors">
-            Find Tutors
-          </Link>
-          <Link href="/about" className="font-medium hover:text-tutor-primary transition-colors">
-            About Us
-          </Link>
-          <Link href="/blog" className="font-medium hover:text-tutor-primary transition-colors">
-            Blog
-          </Link>
-          <Link href="/faq" className="font-medium hover:text-tutor-primary transition-colors">
-            FAQ
-          </Link> */}
-          </nav>
-
-          <div className="flex items-center gap-3">
-            <Button
-              variant="outline"
-              className="hidden md:flex gap-2 items-center"
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-6">
+          {navItems.map((nav, index) => (
+            <Link
+              key={index}
+              href={nav.href}
+              className="font-medium hover:text-tutor-primary transition-colors"
             >
+              {nav.name}
+            </Link>
+          ))}
+          {/* <MegaMenu /> */}
+        </nav>
+
+        {/* Desktop Buttons */}
+        {!user ? (
+          <div className="hidden md:flex items-center gap-3">
+            <Button variant="outline" className="flex gap-2 items-center">
               <User size={18} />
               <Link href="/login">
                 <span>Sign In</span>
@@ -75,77 +73,72 @@ export default function Navbar() {
             <Link href="/signuptutor">
               <Button>Become a Tutor</Button>
             </Link>
-
-            <Button variant="ghost" size="icon" className="md:hidden">
-              <Search size={20} />
-            </Button>
-            <Button variant="ghost" size="icon" className="md:hidden">
-              <User size={20} />
-            </Button>
           </div>
+        ) : (
+          <div className="hidden md:flex items-center gap-3">
+            <Button onClick={handleLogout}>Log Out</Button>
+          </div>
+        )}
+
+        {/* Mobile Buttons */}
+        <div className="flex md:hidden items-center gap-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </Button>
         </div>
-      </header>
-      <div>
-        <nav className="p-4 shadow-md bg-white">
-          <div className="flex items-center justify-between">
-            <div className="text-2xl font-bold text-blue-600">
-              <Link href="/">TutorLin 🎓</Link>
-            </div>
-
-            {/* Desktop menu */}
-            <div className="hidden md:flex gap-6 items-center">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`hover:text-blue-600 transition ${
-                    pathName === item.href ? "text-blue-500 font-semibold" : ""
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              ))}
-
-              {
-                // second nave bar
-              }
-              <Avater />
-            </div>
-
-            {/* Mobile menu button */}
-            <div className="md:hidden">
-              <button onClick={() => setIsOpen(!isOpen)}>
-                {isOpen ? (
-                  <X className="h-6 w-6" />
-                ) : (
-                  <Menu className="h-6 w-6" />
-                )}
-              </button>
-            </div>
-          </div>
-
-          {/* Mobile menu dropdown */}
-          {isOpen && (
-            <div className="flex flex-col mt-4 space-y-2 md:hidden">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setIsOpen(false)}
-                  className={`block px-2 py-1 hover:bg-blue-100 rounded ${
-                    pathName === item.href ? "text-blue-600 font-semibold" : ""
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              ))}
-              <div className="mt-2">
-                <Avater />
-              </div>
-            </div>
-          )}
-        </nav>
       </div>
-    </div>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-white w-full shadow-lg border-t py-4">
+          <nav className="flex flex-col gap-4 px-4">
+            {navItems.map((nav, index) => (
+              <Link
+                key={index}
+                href={nav.href}
+                className="font-medium hover:text-tutor-primary transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {nav.name}
+              </Link>
+            ))}
+            {/* <MegaMenu /> */}
+            {!user ? (
+              <div>
+                <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
+                  <Button variant="outline" className="w-full">
+                    Sign In
+                  </Button>
+                </Link>
+                <Link
+                  href="/signupstudent"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <Button variant="outline" className="w-full">
+                    Sign Up as Student
+                  </Button>
+                </Link>
+                <Link
+                  href="/signuptutor"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <Button className="w-full">Become a Tutor</Button>
+                </Link>
+              </div>
+            ) : (
+              <div className=" md:flex items-center gap-3">
+                <Button onClick={handleLogout}>Log Out</Button>
+              </div>
+            )}
+          </nav>
+        </div>
+      )}
+    </header>
   );
 }
+
+export default Navbar;

@@ -55,8 +55,8 @@ export default function HeroSection({ tutors }: Props) {
   const showResults = searchTerm.trim().length > 0 && filteredTutors.length > 0;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
-      <section className="flex flex-col items-center text-center space-y-6">
+    <div className=" mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6  h-6/12  rounded-b-4xl  bg-gradient-to-t from-green-200">
+      <section className="flex flex-col items-center text-center space-y-10 mt-20 md:h-96">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-blue-700">
           Find Your Perfect Tutor Today!
         </h1>
@@ -65,18 +65,18 @@ export default function HeroSection({ tutors }: Props) {
           Discover top tutors by subject, grade, or name. Learn from the best and achieve your goals!
         </p>
 
-        <div className="w-full max-w-xl flex flex-col sm:flex-row gap-2">
+        <div className="w-full max-w-xl flex flex-col sm:flex-row">
           <Input
             value={searchTerm}
             onChange={handleSearchChange}
             placeholder="Search by subject..."
-            className="flex-1 bg-white"
+            className="flex-1 bg-white "
           />
-          <Button>Search</Button>
+          <Button className="m-0">Find Tutor</Button>
         </div>
 
         <Link href="/tutor">
-          <Button className="px-6 py-3 text-base sm:text-lg mt-4">Get Started</Button>
+          <Button className="px-6 py-3 text-base sm:text-lg mt-4">Explore All Tutor </Button>
         </Link>
       </section>
 

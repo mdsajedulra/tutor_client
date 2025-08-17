@@ -102,7 +102,7 @@ export default function CompleteTutorProfile() {
       email: user?.email,
       name: user?.name,
     };
-    console.log("update data", updateData);
+    //("update data", updateData);
 
     const res = await completeProfile(updateData);
 

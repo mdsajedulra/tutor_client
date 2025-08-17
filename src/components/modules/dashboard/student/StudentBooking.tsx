@@ -25,7 +25,7 @@ const StudentBookings = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       const res = await getBookingByStudentId(user?._id as string);
-      console.log(res);
+      //(res);
       if (Array.isArray(res?.data)) {
         setBookings(res.data);
       } else if (res?.data) {

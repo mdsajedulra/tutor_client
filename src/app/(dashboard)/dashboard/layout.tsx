@@ -5,9 +5,9 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-    <Navbar/>
+      <Navbar />
       <SidebarProvider>
-        <AppSidebar  />
+        <AppSidebar />
         <SidebarTrigger />
         {children}
       </SidebarProvider>

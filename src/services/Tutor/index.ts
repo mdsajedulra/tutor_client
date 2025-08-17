@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const completeProfile = async (tutorData: any): Promise<any> => {
-  // console.log(`${process.env.BACKEND_URL}`);
+  // //(`${process.env.BACKEND_URL}`);
 
   try {
     const res = await fetch(`https://tutorial-link-backend.vercel.app/api/tutor`, {
@@ -11,7 +11,7 @@ export const completeProfile = async (tutorData: any): Promise<any> => {
       },
     });
 
-    console.log("test");
+    //("test");
 
     if (!res.ok) {
       const errorData = await res.json();
@@ -26,7 +26,9 @@ export const completeProfile = async (tutorData: any): Promise<any> => {
 
 
 export const updateTutorProfile = async (id: string , tutorData: any): Promise<any> => {
-  // console.log(`${process.env.BACKEND_URL}`);
+  // //(`${process.env.BACKEND_URL}`);
+
+  
 
   try {
     const res = await fetch(`https://tutorial-link-backend.vercel.app/api/tutor/${id}`, {
@@ -59,12 +61,12 @@ export const getTutor = async (
     params.append("subject", query?.subject.toString())
   }
   params.append("hi", "hi")
-  console.log(params);
+  //(params);
 
 
   try {
     const res = await fetch(`https://tutorial-link-backend.vercel.app/api/tutor`);
-    console.log(process.env.BACKEND_URL);
+    //(process.env.BACKEND_URL);
     const data = await res.json();
     return data;
   } catch (error) {
@@ -83,7 +85,7 @@ export const getTutorByUserId = async (id: string) => {
   }
 };
 export const getTutorByTutorId = async (id: string) => {
-  console.log( "test", id);
+  //( "test", id);
   try {
     const res = await fetch(`https://tutorial-link-backend.vercel.app/api/tutor/${id}`);
     const data = await res.json();
@@ -109,7 +111,7 @@ export const getAllTutor = async()=>{
 
 
 export const getSingleTutorDetails = async(tutorId:any)=>{
-  console.log('this is tutor id', tutorId);
+  //('this is tutor id', tutorId);
   const res = await fetch (`https://tutorial-link-backend.vercel.app/api/tutor/${tutorId}`,{
       next:{
           revalidate: 5,

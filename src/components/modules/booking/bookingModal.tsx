@@ -44,6 +44,7 @@ import { z } from "zod";
 import React, { useState } from "react";
 import { useUser } from "@/context/UserContext";
 import { createBooking } from "@/services/booking";
+import Link from "next/link";
 
 export function BookingModal({ tutor }: { tutor: Tutor }) {
   const [open, setOpen] = React.useState(false);
@@ -123,17 +124,13 @@ export function BookingModal({ tutor }: { tutor: Tutor }) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        {user?.role !== "student" ? (
-          <Button disabled variant="outline">
-            Only Resisterd student can request tutor
-          </Button>
-        ) : (
-          <Button variant="outline">Request Tutor</Button>
-        )}
-
-{/* <Button variant="outline">Request Tutor</Button> */}
-      </DialogTrigger>
+      {user?.role == "student" ?  (
+        <DialogTrigger asChild>
+          <Button variant="outline">Book Now</Button>
+        </DialogTrigger>
+      ) : (
+        <Button><Link href="/login">Book Now</Link></Button>
+      )}
 
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>

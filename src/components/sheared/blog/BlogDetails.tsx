@@ -1,13 +1,15 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client"
 
+import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
 
 const BlogDetails = ({data}:any) => {
-    console.log('blog', data);
+    //('blog', data);
       const [searchTerm, setSearchTerm] = useState('');
   
       const filteredPosts = data?.filter((post:any) =>
@@ -16,26 +18,14 @@ const BlogDetails = ({data}:any) => {
       );
     
       return (
-        <div className="min-h-screen bg-gray-50">
+        <div className=" bg-gray-50">
           {/* Hero Section */}
-          <motion.section 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-20 px-4"
-          >
-            <div className="max-w-6xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">Resource Hub</h1>
-              <div className="max-w-2xl mx-auto">
-                <input
-                  type="text"
-                  placeholder="Search articles..."
-                  className="w-full px-6 py-3 rounded-lg bg-white/20 border border-white/30 focus:outline-none focus:ring-2 focus:ring-white/50 placeholder-white/70"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </div>
-            </div>
-          </motion.section>
+    
+     <div>
+        <h1 className="mt-12 text-3xl md:text-5xl font-bold text-center">
+Our Blogs
+        </h1>
+      </div>
     
           {/* Articles Grid */}
           <section className="max-w-7xl mx-auto px-4 py-16">
@@ -61,9 +51,9 @@ const BlogDetails = ({data}:any) => {
                     <p className="text-gray-600 mb-4">{post.excerpt}</p>
                     <div className="flex items-center text-sm text-gray-500">
                       <span>{post.date}</span>
-                      <button className="ml-auto px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                      <Button className="ml-auto px-4 py-2 rounded-lg  transition-colors">
                         Read More
-                      </button>
+                      </Button>
                     </div>
                   </div>
                 </motion.article>

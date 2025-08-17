@@ -85,7 +85,7 @@
 //     };
 //     fetchSubject();
 //   }, []);
-//   // console.log(subject);
+//   // //(subject);
 
 //   const subs = subject?.data.map((sub: { category: any; }) => (sub?.category))
 
@@ -105,7 +105,7 @@
 //       location: data?.location,
 //       email: user?.email,
 //     };
-//     console.log(updateData);
+//     //(updateData);
 //     const res = await updateTutorProfile(updateData)
 //    if(res.success) {
 //     toast.success("Your profile is ready as a tutor");

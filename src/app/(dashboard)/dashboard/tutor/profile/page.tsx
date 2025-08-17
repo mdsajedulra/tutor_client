@@ -12,7 +12,7 @@ export default function UserProfile() {
 
 const {user } = useUser()
 
-console.log(user);
+//(user);
 
   if (!user) {
     return <div className="text-center py-10"><Loader/></div>;

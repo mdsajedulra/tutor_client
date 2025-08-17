@@ -35,7 +35,7 @@ const Page = async () => {
   const tutorsdata = await getAllTutor();
 
   const tutors = tutorsdata.data;
-  console.log("this is tutors data", tutors);
+  //("this is tutors data", tutors);
 
   return (
     <div className="w-[80%] mx-auto py-10">

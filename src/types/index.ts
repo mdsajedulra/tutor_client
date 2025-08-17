@@ -1,4 +1,4 @@
-import { IUser } from "./user";
+
 
 export * from "./user"
 
@@ -10,6 +10,8 @@ export interface AvailabilitySlot {
   }
   
   export interface Tutor {
+    email: string;
+    totalEarnings: number;
     _id: string;
     name: string;
     image: string;
@@ -19,6 +21,6 @@ export interface AvailabilitySlot {
     ratings: number;
     location: string;
     availability: AvailabilitySlot[];
-    user: IUser
+    user: string
   }
 

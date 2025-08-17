@@ -58,9 +58,9 @@ export default function RegisterForm() {
         isComplete: false,
         image: ""
       }
-      console.log(updateData);
+      //(updateData);
       const res = await registerUser(updateData);
-      console.log(res);
+      //(res);
       if (res?.success) {
         toast.success(res?.message);
         if (redirect) {

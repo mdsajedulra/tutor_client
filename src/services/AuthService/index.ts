@@ -15,12 +15,12 @@ export const registerUser = async (userData: loginUserData) => {
     });
     const result = await res.json();
     if (result.success) {
-      console.log(result?.token);
+      //(result?.token);
       // (await cookies()).set("accessToken", result?.token);
     }
     return result;
   } catch (error) {
-    console.log(error);
+    //(error);
   }
 };
 export const loginUser = async (userData: loginUserData) => {
@@ -35,12 +35,12 @@ export const loginUser = async (userData: loginUserData) => {
     });
     const result = await res.json();
     if (result.success) {
-      console.log("test token", result?.token);
+      //("test token", result?.token);
       (await cookies()).set("accessToken", result?.token);
     }
     return result;
   } catch (error) {
-    console.log(error);
+    //(error);
   }
 };
 
@@ -48,12 +48,12 @@ export const loginUser = async (userData: loginUserData) => {
 
 export const getCurrentUser = async () => {
   const tokenData = (await cookies()).get("accessToken");
-  console.log("token test", tokenData);
+  //("token test", tokenData);
   const accessToken = tokenData?.value; // safe check
   let decodedData = null;
   if (accessToken) {
     decodedData = await jwtDecode(accessToken);
-    console.log(decodedData.email);
+    //(decodedData.email);
     const res = await fetch(
       `${process.env.BACKEND_URL}/users/${decodedData?.email}`,
       {
