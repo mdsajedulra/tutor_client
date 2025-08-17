@@ -85,7 +85,7 @@ const FaqDetails = () => {
             }}
             className={`px-4 py-2 font-medium transition-all duration-200 ${
               activeCategory === category
-                ? "bg-blue-100 text-blue-800"
+                ? "bg-green-100 text-green-800"
                 : "bg-white hover:bg-gray-100"
             }`}
           >
@@ -104,7 +104,7 @@ const FaqDetails = () => {
             >
               <button
                 onClick={() => handleToggle(index)}
-                className="w-full text-left font-medium text-lg text-gray-800 hover:text-blue-600 transition"
+                className="w-full text-left font-medium text-lg text-gray-800 hover:text-green-600 transition"
               >
                 {item.question}
               </button>
@@ -144,7 +144,7 @@ const FaqDetails = () => {
               </label>
               <input
                 type="text"
-                className="mt-1 block w-full rounded-md bg-white p-2 border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md bg-white p-2 border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
                 placeholder="John Doe"
               />
             </div>
@@ -154,7 +154,7 @@ const FaqDetails = () => {
               </label>
               <input
                 type="email"
-                className="mt-1 block w-full rounded-md bg-white p-2 border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md bg-white p-2 border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
                 placeholder="you@example.com"
               />
             </div>
@@ -165,14 +165,14 @@ const FaqDetails = () => {
             </label>
             <textarea
               rows={4}
-              className="mt-1 block w-full rounded-md bg-white p-2 border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-1 block w-full rounded-md bg-white p-2 border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
               placeholder="Ask your question here..."
             />
           </div>
           <div className="w-full flex justify-center">
             <button
               type="submit"
-              className="w-1/2 max-w-md bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700 transition"
+              className="w-1/2 max-w-md bg-green-600 text-white font-semibold py-2 rounded-md hover:bg-green-700 transition"
             >
               Submit Question
             </button>

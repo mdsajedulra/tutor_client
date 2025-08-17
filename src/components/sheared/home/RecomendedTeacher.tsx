@@ -4,7 +4,7 @@ import { Tutor } from "@/types";
 
 async function RecomendedTeacher() {
   const tutor = await getTutor();
-  const recomendedByFindTutor = tutor.data.slice(0, 6);
+  const recomendedByFindTutor = tutor.data.slice(0, 8);
 
   //(recomendedByFindTutor);
 
@@ -16,7 +16,7 @@ async function RecomendedTeacher() {
         </h1>
       </div>
 
-      <div className="flex flex-wrap justify-center gap-6 sm:gap-8 md:gap-10">
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-center gap-6 sm:gap-8 md:gap-10">
         {recomendedByFindTutor.map((tutors: Tutor) => (
           <TutorCard key={tutors._id} tutor={tutors} />
         ))}

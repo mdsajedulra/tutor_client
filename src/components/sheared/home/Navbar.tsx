@@ -21,15 +21,17 @@ export function Navbar() {
 
       setUser(null);
     } catch (error) {
+      console.log(error);
       //("Logout failed:", error);
     }
   };
 
   const navItems = [
     { name: "Find Tutor", href: "/tutor" },
-    { name: "About Us", href: "/about" },
     { name: "FAQ", href: "/faq" },
     { name: "Blogs", href: "/blog" },
+    { name: "About", href: "/about" },
+    { name: "Contact", href: "/contact" },
   ];
   // const logOut = logout();
 
@@ -77,6 +79,9 @@ export function Navbar() {
         ) : (
           <div className="hidden md:flex items-center gap-3">
             <Button onClick={handleLogout}>Log Out</Button>
+            <Button>
+              <Link href={"/dashboard"}>Dashboard</Link>
+            </Button>
           </div>
         )}
 

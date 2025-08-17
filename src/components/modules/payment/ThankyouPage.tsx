@@ -29,6 +29,8 @@ const ThankYou = () => {
     if (orderId) getVerifyData();
   }, [orderId]);
 
+  
+
   if (!order) return <Loader />;
 
   return (

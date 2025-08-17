@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { Tutor } from "./tutor";
+import Skeleton from 'react-loading-skeleton'
+
 
 interface Props {
   tutor: Tutor;
@@ -20,6 +22,7 @@ export function TutorCard({ tutor }: Props) {
     //("id fasfsdfasfdsafsadfsafsadfasf" , tutor);
   return (
     <Card className="w-full max-w-sm overflow-hidden rounded-2xl shadow-lg transition-all hover:shadow-xl">
+
       {/* Image with zoom effect */}
       <div className="relative h-64 w-full overflow-hidden">
         <Image
@@ -37,7 +40,7 @@ export function TutorCard({ tutor }: Props) {
         {/* Gradient overlay with name */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end p-4">
           <CardTitle className="text-xl font-semibold text-white">
-            {name}
+            {name || <Skeleton/>}
           </CardTitle>
         </div>
       </div>
@@ -46,7 +49,7 @@ export function TutorCard({ tutor }: Props) {
       <CardContent className="p-6">
         <div className="space-y-3">
           <CardDescription className="line-clamp-2 text-sm text-gray-600">
-            {bio}
+            {bio || <Skeleton/>}
           </CardDescription>
 
           <div className="flex flex-wrap gap-2">
@@ -55,7 +58,7 @@ export function TutorCard({ tutor }: Props) {
                 key={index}
                 className="rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-800"
               >
-                {subject}
+                {subject || <Skeleton/>}
               </span>
             ))}
           </div>
@@ -63,12 +66,12 @@ export function TutorCard({ tutor }: Props) {
           <div className="flex items-center justify-between pt-2">
             <div className="space-y-1">
               <p className="text-sm font-medium">
-                ⭐ {ratings}{" "}
+                ⭐ {ratings || <Skeleton/>}{" "}
                 <span className="text-gray-500">
                   ({Math.round(ratings * 10)} reviews)
                 </span>
               </p>
-              <p className="text-sm">📍 {location}</p>
+              <p className="text-sm">📍 {location || <Skeleton/>}</p>
             </div>
             <p className="text-lg font-bold text-primary">${hourlyRate}/hr</p>
           </div>

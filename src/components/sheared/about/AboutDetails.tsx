@@ -4,14 +4,14 @@ import React from 'react';
 
 const AboutDetails = () => {
     return (
-        <div>
+        <div className=''>
             <div>
     
       <div className="bg-gray-50 text-gray-900">
         {/* Hero */}
-        <section className="text-center py-16 px-4">
+        <section className="text-center py-16 px-4 bg-gradient-to-t from-green-400 to-w  ">
           <h2 className="text-4xl font-bold">About Us</h2>
-          <p className="mt-4 text-xl font-semibold text-blue-700">
+          <p className="mt-4 text-xl font-semibold text-green-700">
             Empowering Students, One Connection at a Time
           </p>
           <p className="text-gray-600">
@@ -126,17 +126,17 @@ const AboutDetails = () => {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
             <div className="p-4 bg-gray-50 border rounded flex items-center gap-2 justify-center">
-              <BookOpen className="w-10 h-10 text-blue-500" /> Expanding
+              <BookOpen className="w-10 h-10 text-green-500" /> Expanding
               Subjects
             </div>
             <div className="p-4 bg-gray-50 border rounded flex items-center gap-2 justify-center">
-              <Globe className="w-10 h-10 text-blue-500" /> Global Reach
+              <Globe className="w-10 h-10 text-green-500" /> Global Reach
             </div>
             <div className="p-4 bg-gray-50 border rounded flex items-center gap-2 justify-center">
-              <Bot className="w-10 h-10 text-blue-500" /> AI-Driven Matching
+              <Bot className="w-10 h-10 text-green-500" /> AI-Driven Matching
             </div>
             <div className="p-4 bg-gray-50 border rounded flex items-center gap-2 justify-center">
-              <Smartphone className="w-10 h-10 text-blue-500" /> Mobile App
+              <Smartphone className="w-10 h-10 text-green-500" /> Mobile App
             </div>
           </div>
         </section>

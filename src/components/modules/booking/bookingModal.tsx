@@ -102,6 +102,8 @@ export function BookingModal({ tutor }: { tutor: Tutor }) {
       timeSlot: result.timeSlot,
     };
 
+    console.log(bookingData);
+
     try {
       const res = await createBooking(bookingData);
       if (res.success) {
@@ -124,12 +126,14 @@ export function BookingModal({ tutor }: { tutor: Tutor }) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      {user?.role == "student" ?  (
+      {user?.role == "student" ? (
         <DialogTrigger asChild>
           <Button variant="outline">Book Now</Button>
         </DialogTrigger>
       ) : (
-        <Button><Link href="/login">Book Now</Link></Button>
+        <Button>
+          <Link href="/login">Book Now</Link>
+        </Button>
       )}
 
       <DialogContent className="sm:max-w-[425px]">

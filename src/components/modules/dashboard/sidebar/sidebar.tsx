@@ -101,7 +101,7 @@ if(user?.role ==="student"){
           </SidebarGroupContent>
         </SidebarGroup>
         <SidebarFooter>
-          <Link className="border text-center mt-100" href="/">
+          <Link className="border text-center mt-150" href="/">
             Back to home
           </Link>
         </SidebarFooter>
